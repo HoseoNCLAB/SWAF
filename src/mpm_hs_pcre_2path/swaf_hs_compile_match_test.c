@@ -3,7 +3,7 @@
 #include "swaf_hs_loader.h"
 #include "swaf_hs_matcher.h"
 
-#define HS_RULE_PATH "../parsed_rules/hyperscan_only_rules.json"
+#define HS_RULE_PATH "../../parsed_rules/hyperscan_only_rules.json"
 
 int main() {
     printf("[SWAF] Hyperscan DB 컴파일 테스트 시작\n");

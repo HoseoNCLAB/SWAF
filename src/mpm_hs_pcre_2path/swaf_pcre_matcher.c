@@ -7,6 +7,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#define MAX_CHAIN_DEPTH 10  /* 체인 룰 최대 단계 수 */
+
 /**
  * SwafMatchPcre
  * - 주어진 룰 ID에 해당하는 정규식을 PCRE2 캐시에서 조회한 뒤,
@@ -64,4 +66,48 @@ int SwafMatchPcre(const char *rule_id, const char *payload) {
      * - 일반 매칭인 경우: 매칭되어야 성공 → rc > 0 → 성공
      */
     return is_negated ? (rc <= 0) : (rc > 0);
+}
+
+/**
+ * SwafMatchPcreChain
+ * - 주어진 체인 룰 ID (예: "942130")에 대해
+ * - "942130_0", "942130_1", ... 순차적으로 모두 매칭되는지 검사
+ * - 하나라도 실패하면 전체 매칭 실패
+ */
+ int SwafMatchPcreChain(const char *chain_base_id, const char *payload) {
+    char chain_id[64];
+
+    for (int i = 0; i < MAX_CHAIN_DEPTH; i++) {
+        snprintf(chain_id, sizeof(chain_id), "%s_%d", chain_base_id, i);
+
+        pcre2_code *re = PcreCacheTableGet(chain_id);
+        if (!re) {
+            /* 다음 체인 룰이 없으면 끝으로 간주 */
+            break;
+        }
+
+        int is_negated = PcreCacheTableIsNegated(chain_id);
+        pcre2_match_data *match_data = pcre2_match_data_create_from_pattern(re, NULL);
+        if (!match_data) return 0;
+
+        int rc = pcre2_match(
+            re, (PCRE2_SPTR)payload, strlen(payload), 0, 0, match_data, NULL);
+
+        pcre2_match_data_free(match_data);
+
+        /** 
+         * 부정 매칭인 경우: 매칭되지 않아야 성공 → rc <= 0 → 성공
+         * 일반 매칭인 경우: 매칭되어야 성공 → rc > 0 → 성공
+         */
+        printf("[CHAIN TEST] [%s] is_negated=%d → rc=%d → %s\n",
+            chain_id, is_negated, rc,
+            ((is_negated && rc > 0) || (!is_negated && rc <= 0)) ? "FAIL" : "PASS");
+
+        
+        if ((is_negated && rc > 0) || (!is_negated && rc <= 0)) {
+            return 0; /* 체인 단계 중 하나라도 실패 */
+        }
+    }
+
+    return 1; /* 모든 체인 매칭 통과 */
 }
