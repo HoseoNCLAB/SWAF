@@ -1,6 +1,6 @@
 #define PCRE2_CODE_UNIT_WIDTH 8
 
-#include "swaf_pcre_capture.h"
+#include "swaf_pcre_capture_single.h"
 #include "swaf_pcre_cache_table.h"
 
 #include <pcre2.h>
