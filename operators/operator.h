@@ -68,6 +68,8 @@ class Operator {
     bool m_negation;
     std::unique_ptr<RunTimeString> m_string;
     bool m_couldContainsMacro;
+
+    std::string m_match_message;
 };
 
 }  // namespace operators
