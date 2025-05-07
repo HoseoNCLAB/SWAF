@@ -61,8 +61,6 @@ int SwafInitPCRE(const char *json_path) {
                 if (strncmp(regex_raw, "!@rx", 4) == 0) {
                     is_negated = 1;
                     actual_rx = regex_raw + 4;
-                } else if (strncmp(regex_raw, "@rx", 3) == 0) {
-                    actual_rx = regex_raw + 3;
                 } else {
                     actual_rx = regex_raw;
                 }
@@ -131,8 +129,6 @@ int SwafInitPCRE(const char *json_path) {
         if (strncmp(regex_raw, "!@rx", 4) == 0) {
             is_negated = 1;
             actual_rx = regex_raw + 4;
-        } else if (strncmp(regex_raw, "@rx", 3) == 0) {
-            actual_rx = regex_raw + 3;
         } else {
             actual_rx = regex_raw;
         }

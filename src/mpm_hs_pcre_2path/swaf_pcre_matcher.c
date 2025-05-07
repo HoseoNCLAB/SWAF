@@ -39,6 +39,13 @@ int SwafMatchPcre(const char *rule_id, const char *payload) {
         return 0;
     }
 
+    /* 디버그: 매칭할 페이로드 문자열 출력 */
+    PCRE2_SPTR p = (PCRE2_SPTR)payload;
+    for (size_t i = 0; i < strlen(payload); i++) {
+        printf("%02X ", p[i]);
+    }
+    puts("");
+
     /*
      * 실제 매칭 수행
      * - re: 컴파일된 정규식

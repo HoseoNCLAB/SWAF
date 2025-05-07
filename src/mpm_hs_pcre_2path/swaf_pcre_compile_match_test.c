@@ -26,8 +26,12 @@ int main() {
     // const char *rule_id = "942130";  // 체인 룰 ID
     // const char *payload = "username = admin AND password != 1234 AND substr(password,1,3)";
 
-    const char *rule_id = "932231";  // 단일 룰 ID
-    const char *payload = "$user && $cmd . now"; 
+    // const char *rule_id = "941160";  // 단일 룰 ID
+    // const char *payload = "<script>alert('XSS')</script>";  // 테스트할 페이로드
+
+    // RCE 체인 룰 테스트
+    const char *rule_id = "932200";  // 체인 룰 ID
+    const char *payload = "/bin/sh -c \"$(echo 'echo hello') && cat $HOME/.bashrc | grep root";
 
 
     printf("[TEST] 룰 %s 에 대한 매칭 시도\n", rule_id);
@@ -37,6 +41,10 @@ int main() {
     snprintf(chain_id, sizeof(chain_id), "%s_0", rule_id);
 
     TxStore tx = {0};  // 캡처 결과 저장용
+
+    /* 매칭 전 디버그 */
+    printf("[DEBUG] PCRE 입력 문자열: '%s'\n", payload);
+    printf("[DEBUG] 정규식 길이: %zu\n", strlen(payload));
 
     if (PcreCacheTableGet(chain_id)) {
         /** 체인 룰 처리 */

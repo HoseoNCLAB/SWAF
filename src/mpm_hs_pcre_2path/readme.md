@@ -12,4 +12,4 @@
 
 ### -- swaf_pcre_compile_match_test.c compile code --
 
-#### g++ -o swaf_pcre_compile_match_test swaf_pcre_compile_match_test.c swaf_pcre_loader.c swaf_pcre_cache_table.c swaf_pcre_matcher.c swaf_pcre_capture.c -ljansson -lpcre2-8
+#### g++ -o swaf_pcre_compile_match_test     swaf_pcre_compile_match_test.c     swaf_pcre_loader.c     swaf_pcre_matcher.c     swaf_pcre_cache_table.c     swaf_pcre_capture_single.c     swaf_pcre_capture_chain.c     -ljansson -lpcre2-8
