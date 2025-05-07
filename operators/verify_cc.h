@@ -1,18 +1,3 @@
-/*
- * ModSecurity, http://www.modsecurity.org/
- * Copyright (c) 2015 - 2021 Trustwave Holdings, Inc. (http://www.trustwave.com/)
- *
- * You may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * If any of the files related to licensing are missing or if you have any
- * other questions related to licensing please contact Trustwave Holdings, Inc.
- * directly using the email address security@modsecurity.org.
- *
- */
-
 #ifndef SRC_OPERATORS_VERIFY_CC_H_
 #define SRC_OPERATORS_VERIFY_CC_H_
 
@@ -23,34 +8,48 @@
 #include <pcre.h>
 #endif
 
-
 #include <string>
 #include <memory>
 #include <utility>
+#include <cstring>
 
-#include "src/operators/operator.h"
+#include "operator.h"
+#include "transaction.h"
+#include "rule_with_actions.h"
+#include "rule_message.h"
+#include "debug_log.h"
 
 namespace modsecurity {
 namespace operators {
 
 class VerifyCC : public Operator {
  public:
-    /** @ingroup ModSecurity_Operator */
     explicit VerifyCC(std::unique_ptr<RunTimeString> param)
         : Operator("VerifyCC", std::move(param)),
 #ifndef WITH_PCRE
-        m_pc(nullptr),
-        m_pcje(PCRE2_ERROR_JIT_BADOPTION) { }
+          m_pc(nullptr),
+          m_pcje(PCRE2_ERROR_JIT_BADOPTION) { }
 #else
-        m_pc(nullptr),
-        m_pce(nullptr) { }
+          m_pc(nullptr),
+          m_pce(nullptr) { }
 #endif
+
     ~VerifyCC() override;
 
+    // CRS에서 사용하는 기본 evaluate()
+    bool evaluate(Transaction *t, const std::string &input) override {
+        RuleWithActions dummyRule(nullptr, nullptr, "", 0);
+        RuleMessage dummyMsg(dummyRule, *t);
+        return evaluate(t, &dummyRule, input, dummyMsg);
+    }
+
+    // 실제 규칙 적용용 evaluate()
     bool evaluate(Transaction *t, RuleWithActions *rule,
-        const std::string& input,
-        RuleMessage &ruleMessage)  override;
+                  const std::string& input,
+                  RuleMessage &ruleMessage) override;
+
     bool init(const std::string &param, std::string *error) override;
+
  private:
 #ifndef WITH_PCRE
     pcre2_code *m_pc;
@@ -59,11 +58,11 @@ class VerifyCC : public Operator {
     pcre *m_pc;
     pcre_extra *m_pce;
 #endif
+
     static int luhnVerify(const char *ccnumber, int len);
 };
 
 }  // namespace operators
 }  // namespace modsecurity
-
 
 #endif  // SRC_OPERATORS_VERIFY_CC_H_

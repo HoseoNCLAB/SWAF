@@ -3,7 +3,7 @@
 #include <string>
 
 #include "run_time_string.h"
-#include "verify_ssn.h"
+#include "verify_cc.h"
 #include "transaction.h"
 #include "operator.h"
 #include "rule_with_actions.h"
@@ -14,9 +14,8 @@ int main() {
     using namespace modsecurity;
     using namespace modsecurity::operators;
 
-    // SSN 형식: XXX-XX-XXXX 또는 9자리 연속 숫자
-    std::unique_ptr<RunTimeString> param(new RunTimeString("\\b\\d{3}-?\\d{2}-?\\d{4}\\b"));
-    VerifySSN op(std::move(param));
+    std::unique_ptr<RunTimeString> param(new RunTimeString("\\b\\d{16}\\b"));
+    VerifyCC op(std::move(param));
 
     std::string error;
     if (!op.init(".", &error)) {
@@ -28,15 +27,14 @@ int main() {
     RuleWithActions rule(nullptr, nullptr, "", 0);
     RuleMessage msg(rule, tx);
 
-    // 유효한 SSN 예시 (실제 할당되지 않은 예제 번호)
-    std::string input = "My SSN is 123-45-6789";
+    std::string input = "Test input with CC number 1823948285946654"; //수학적으로 신용카드냐? 실사용 카드인지는 api필요함
 
     bool result = op.evaluate(&tx, &rule, input, msg);
 
     if (result) {
-        std::cout << "[+] SSN format verified!" << std::endl;
+        std::cout << "[+] Credit card verified by Luhn algorithm!" << std::endl;
     } else {
-        std::cout << "[-] No valid SSN found." << std::endl;
+        std::cout << "[-] No valid credit card detected." << std::endl;
     }
 
     return 0;
