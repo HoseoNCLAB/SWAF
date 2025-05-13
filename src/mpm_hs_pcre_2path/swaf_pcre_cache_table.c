@@ -3,38 +3,18 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <pcre2.h>
-
-/* 캐시에 저장될 항목 구조체: 룰 ID, 컴파일된 정규식, 부정 여부 */
-typedef struct {
-    char *rule_id;
-    pcre2_code *re;
-    int is_negated;
-} PcreCacheEntry;
-
-/* 버킷 구조체: 키, 데이터, 다음 버킷 연결 */
-typedef struct Bucket_ {
-    char *key;
-    uint16_t key_len;
-    void *data;
-    struct Bucket_ *next;
-} Bucket;
-
-/* 해시 테이블 구조체 */
-struct PcreCacheTable_ {
-    Bucket **buckets;              /* 해시 테이블 배열 */
-    uint32_t size;                 /* 배열 크기 */
-    PcreHashFunc hash_func;        /* 해시 함수 */
-    PcreCompareFunc cmp_func;      /* 키 비교 함수 */
-    PcreFreeFunc free_func;        /* 항목 해제 함수 */
-};
 
 /* 전역 캐시 테이블 포인터 */
-static PcreCacheTable *pcre_cache_table = NULL;
+static PcreCacheTable *hs_cache_table = NULL;
+static PcreCacheTable *pcre_only_cache_table = NULL;
 
 /* 전역 캐시 테이블을 가져옴 */
-PcreCacheTable *PcreCacheTableGetGlobal(void) {
-    return pcre_cache_table;
+PcreCacheTable *HsCacheTableGetGlobal(void) {
+    return hs_cache_table;
+}
+
+PcreCacheTable *PcreOnlyCacheTableGetGlobal(void) {
+    return pcre_only_cache_table;
 }
 
 /* 해시 테이블 생성 */
@@ -140,7 +120,7 @@ static int PcreCompare(const char *k1, uint16_t l1, const char *k2, uint16_t l2)
 }
 
 /* PcreCacheEntry 메모리 해제 */
-static void FreePcreEntry(void *data) {
+void FreePcreEntry(void *data) {
     PcreCacheEntry *entry = (PcreCacheEntry *)data;
     if (entry) {
         free(entry->rule_id);
@@ -151,16 +131,31 @@ static void FreePcreEntry(void *data) {
 
 /* 글로벌 캐시 테이블 초기화 */
 int PcreCacheTableInit(void) {
-    if (pcre_cache_table != NULL)
+    if (hs_cache_table != NULL || pcre_only_cache_table != NULL)
         return 0;
 
-    pcre_cache_table = CreatePcreCacheTable(1024, PcreHash, PcreCompare, FreePcreEntry);
-    return (pcre_cache_table == NULL) ? -1 : 0;
+    hs_cache_table = CreatePcreCacheTable(1024, PcreHash, PcreCompare, FreePcreEntry);
+    pcre_only_cache_table = CreatePcreCacheTable(1024, PcreHash, PcreCompare, FreePcreEntry);
+    return (hs_cache_table == NULL || pcre_only_cache_table == NULL) ? -1 : 0;
 }
 
-/* 글로벌 테이블에 정규식 룰 추가 */
-int PcreCacheTableAdd(const char *rule_id, pcre2_code *re, int is_negated) {
-    if (!pcre_cache_table || !rule_id || !re) return -1;
+/* 글로벌 테이블 해제 */
+void PcreCacheTableFree(void) {
+    if (hs_cache_table) DestroyPcreCacheTable(hs_cache_table);
+    if (pcre_only_cache_table) DestroyPcreCacheTable(pcre_only_cache_table);
+    hs_cache_table = NULL;
+    pcre_only_cache_table = NULL;
+}
+
+/* 룰 ID가 부정 조건인지 확인 */
+int PcreCacheTableIsNegated(const char *rule_id) {
+    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(PcreOnlyCacheTableGetGlobal(), rule_id, strlen(rule_id));
+    return entry ? entry->is_negated : 0;
+}
+
+/* 룰 ID와 컴파일된 정규식을 HS-only 캐시에 추가 */
+int PcreCacheTableAddToHsCache(const char *rule_id, pcre2_code *re, int is_negated) {
+    if (!rule_id || !re) return -1;
 
     PcreCacheEntry *entry = (PcreCacheEntry *)malloc(sizeof(PcreCacheEntry));
     if (!entry) return -1;
@@ -169,33 +164,19 @@ int PcreCacheTableAdd(const char *rule_id, pcre2_code *re, int is_negated) {
     entry->re = re;
     entry->is_negated = is_negated;
 
-    return PcreCacheTableInsert(pcre_cache_table, rule_id, strlen(rule_id), entry);
+    return PcreCacheTableInsert(HsCacheTableGetGlobal(), rule_id, strlen(rule_id), entry);
 }
 
-/* 룰 ID로 정규식 룰을 조회 */
-pcre2_code *PcreCacheTableGet(const char *rule_id) {
-    if (!pcre_cache_table || !rule_id) return NULL;
-    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(pcre_cache_table, rule_id, strlen(rule_id));
-    return entry ? entry->re : NULL;
-}
+/* 룰 ID와 컴파일된 정규식을 PCRE-only 캐시에 추가 */
+int PcreCacheTableAddToPcreCache(const char *rule_id, pcre2_code *re, int is_negated) {
+    if (!rule_id || !re) return -1;
 
-/* 룰이 부정 조건인지 확인 */
-int PcreCacheTableIsNegated(const char *rule_id) {
-    if (!pcre_cache_table || !rule_id) return 0;
-    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(pcre_cache_table, rule_id, strlen(rule_id));
-    return entry ? entry->is_negated : 0;
-}
+    PcreCacheEntry *entry = (PcreCacheEntry *)malloc(sizeof(PcreCacheEntry));
+    if (!entry) return -1;
 
-/* 글로벌 테이블 해제 */
-void PcreCacheTableFree(void) {
-    if (!pcre_cache_table) return;
-    DestroyPcreCacheTable(pcre_cache_table);
-    pcre_cache_table = NULL;
-}
+    entry->rule_id = strdup(rule_id);
+    entry->re = re;
+    entry->is_negated = is_negated;
 
-/* 디버그 출력 */
-void PcreCacheTableDebugDump(void) {
-    printf("[DEBUG] --- PCRE 캐시 내부 룰 ID 목록 ---\n");
-    if (pcre_cache_table)
-        PcreCacheTableDump(pcre_cache_table);
+    return PcreCacheTableInsert(PcreOnlyCacheTableGetGlobal(), rule_id, strlen(rule_id), entry);
 }

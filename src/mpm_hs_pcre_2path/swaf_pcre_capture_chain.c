@@ -2,6 +2,7 @@
 
 #include "swaf_pcre_capture_chain.h"
 #include "swaf_pcre_cache_table.h"
+#include "tx_store.h"
 
 #include <pcre2.h>
 #include <stdio.h>
@@ -21,29 +22,32 @@
  * @return 1 모든 체인 매칭 및 캡처 성공, 0 실패
  */
 int SwafCapturePcreChain(const char *chain_base_id, const char *subject, TxStore *tx) {
-    if (!chain_base_id || !subject || !tx)
-        return 0;
+
+    printf("[DEBUG] SwafCapturePcreChain 시작\n");
+
+    if (!chain_base_id || !subject || !tx) return 0;
+
+    // 캡처 그룹 초기화
+    FreeTxStore(tx);
 
     char chain_id[64];
 
     for (int i = 0; i < MAX_CHAIN_DEPTH; i++) {
         snprintf(chain_id, sizeof(chain_id), "%s_%d", chain_base_id, i);
 
-        pcre2_code *re = PcreCacheTableGet(chain_id);
-        if (!re) {
-            /* 다음 체인 룰이 없으면 종료 */
+        PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(PcreOnlyCacheTableGetGlobal(), chain_id, strlen(chain_id));
+        if (!entry || !entry->re) {
+            // 더 이상 체인 단계가 없으면 종료
             break;
         }
 
-        pcre2_match_data *match_data = pcre2_match_data_create_from_pattern(re, NULL);
+        pcre2_match_data *match_data = pcre2_match_data_create_from_pattern(entry->re, NULL);
         if (!match_data) {
             fprintf(stderr, "[PCRE] match_data 생성 실패 (%s)\n", chain_id);
             return 0;
         }
 
-        int rc = pcre2_match(
-            re, (PCRE2_SPTR)subject, strlen(subject), 0, 0, match_data, NULL);
-
+        int rc = pcre2_match(entry->re, (PCRE2_SPTR)subject, strlen(subject), 0, 0, match_data, NULL);
         if (rc <= 0) {
             pcre2_match_data_free(match_data);
             return 0;
@@ -53,13 +57,14 @@ int SwafCapturePcreChain(const char *chain_base_id, const char *subject, TxStore
 
         for (int j = 0; j < rc && j < MAX_CAPTURE_GROUPS; ++j) {
             PCRE2_SIZE start = ovector[2 * j];
-            PCRE2_SIZE end = ovector[2 * j + 1];
+            PCRE2_SIZE end   = ovector[2 * j + 1];
             size_t len = end - start;
 
-            if (len >= MAX_CAPTURE_LEN)
-                len = MAX_CAPTURE_LEN - 1;
+            if (tx->tx[j]) {
+                free(tx->tx[j]);
+                tx->tx[j] = NULL;
+            }
 
-            if (tx->tx[j]) free(tx->tx[j]);
             tx->tx[j] = (char *)malloc(len + 1);
             if (!tx->tx[j]) {
                 fprintf(stderr, "[PCRE] 캡처 메모리 할당 실패 (%s TX.%d)\n", chain_id, j);
@@ -68,6 +73,7 @@ int SwafCapturePcreChain(const char *chain_base_id, const char *subject, TxStore
 
             strncpy(tx->tx[j], subject + start, len);
             tx->tx[j][len] = '\0';
+            printf("[DEBUG] TX.%d = %s\n", j, tx->tx[j]);
         }
 
         pcre2_match_data_free(match_data);
@@ -75,4 +81,3 @@ int SwafCapturePcreChain(const char *chain_base_id, const char *subject, TxStore
 
     return 1;
 }
-

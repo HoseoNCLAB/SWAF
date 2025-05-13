@@ -62,11 +62,11 @@ int main() {
         }
     } else {
         /** 단일 룰 처리 */
-        printf("[DEBUG] SwafMatchPcre 호출: 룰 ID = [%s] (len=%zu)\n", rule_id, strlen(rule_id));
-        if (SwafMatchPcre(rule_id, payload)) {
+        printf("[DEBUG] SwafMatchPcreSingle 호출: 룰 ID = [%s] (len=%zu)\n", rule_id, strlen(rule_id));
+        if (SwafMatchPcreSingle(rule_id, payload)) {
             printf("[RESULT] 매칭 성공\n");
 
-            if (SwafCapturePcre(rule_id, payload, &tx)) {
+            if (SwafCapturePcreSingle(rule_id, payload, &tx)) {
                 for (int i = 0; i < MAX_CAPTURE_GROUPS; i++) {
                     if (tx.tx[i])
                         printf("TX.%d = %s\n", i, tx.tx[i]);

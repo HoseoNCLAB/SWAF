@@ -35,7 +35,10 @@ int SwafInitHyperscan(const char *json_path) {
             continue;
         }
 
-        printf("[DEBUG] Hyperscan 등록 예정 정규식((?i) 제거 전): %s\n", regex_raw);
+
+        /* 디버그용 */
+        // printf("[DEBUG] Hyperscan 등록 예정 정규식((?i) 제거 전): %s\n", regex_raw);
+
 
         // flags 설정
         uint32_t flags = HS_FLAG_DOTALL | HS_FLAG_MULTILINE;
@@ -48,7 +51,10 @@ int SwafInitHyperscan(const char *json_path) {
             is_ci = true;
         }
 
-        printf("[DEBUG] Hyperscan 등록 예정 정규식((?i) 제거 후): %s\n", regex_raw);
+
+        /* 디버그용 */
+        // printf("[DEBUG] Hyperscan 등록 예정 정규식((?i) 제거 후): %s\n", regex_raw);
+
 
         uint32_t sid = (uint32_t)atoi(rule_id);
         uint32_t pid = sid;
@@ -115,7 +121,8 @@ int SwafConnectPatternSids(void) {
         p->sids = sid_arr;
         p->sids_size = 1;
 
-        printf("[CONNECT] Pattern %u (id=%u) → SID 설정 완료: %u\n", i, p->id, sid_arr[0]);
+        /* 디버그용 */
+        // printf("[CONNECT] Pattern %u (id=%u) → SID 설정 완료: %u\n", i, p->id, sid_arr[0]);
     }
 
     return 0;

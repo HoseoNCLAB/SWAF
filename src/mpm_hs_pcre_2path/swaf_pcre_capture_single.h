@@ -9,6 +9,6 @@
  *
  * @return 1 (캡처 성공), 0 (실패 또는 매칭 안됨)
  */
-int SwafCapturePcre(const char *rule_id, const char *subject, TxStore *tx);
+int SwafCapturePcreSingle(const char *rule_id, const char *subject, TxStore *tx, int is_hs_cache);
 
 #endif /* __SWAF_PCRE_CAPTURE_H__ */

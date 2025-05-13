@@ -2,14 +2,13 @@
 #include "mpm.h"
 #include "mpm_hs.h"
 #include "prefilter.h"
+#include "swaf_pcre_matcher.h"
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-extern MpmCtx mpm_ctx;  // swaf_hs_loader.c에서 초기화된 글로벌 컨텍스트
-
-// 전역 스레드 컨텍스트 (1회 초기화 재사용 가능)
+extern MpmCtx mpm_ctx;
 static MpmThreadCtx mpm_thread_ctx;
 
 SigMatchResult SwafMatchHyperscan(const char *payload) {
@@ -38,30 +37,26 @@ SigMatchResult SwafMatchHyperscan(const char *payload) {
     printf("[DEBUG] rule_store ID 저장 배열: %p, 크기: %u\n",
            (void *)rule_store.rule_id_array, rule_store.rule_id_array_size);
 
-    // 핵심 수정: len은 최대 MAX_PAYLOAD_LEN까지만 전달
-    uint32_t matched = SCHSSearch(&mpm_ctx,
-                                  &mpm_thread_ctx,
-                                  &rule_store,
-                                  (const uint8_t *)payload,
-                                  (uint32_t)len);
+    uint32_t matched = SCHSSearch(&mpm_ctx, &mpm_thread_ctx, &rule_store,
+                                  (const uint8_t *)payload, (uint32_t)len);
 
-    if (rule_store.rule_id_array_cnt > rule_store.rule_id_array_size) {
-        fprintf(stderr, "[FATAL] rule_id_array_cnt (%u) > rule_id_array_size (%u)\n",
-                rule_store.rule_id_array_cnt, rule_store.rule_id_array_size);
-        PmqCleanup(&rule_store);
-        exit(EXIT_FAILURE);
-    }
+    printf("\n[DEBUG] 매칭된 룰 개수: %u\n", rule_store.rule_id_array_cnt);
 
-    printf("[DEBUG] 매칭된 룰 개수: %u\n", rule_store.rule_id_array_cnt);
-    for (uint32_t i = 0; i < rule_store.rule_id_array_cnt; i++) {
-        printf("  - rule_id_array[%u] = %u\n", i, rule_store.rule_id_array[i]);
-    }
-
+    /* Hyperscan 매칭 성공 시 모든 룰 ID를 결과에 저장 */
     result.match_cnt = rule_store.rule_id_array_cnt;
     if (result.match_cnt > 0 && rule_store.rule_id_array != NULL) {
-        memcpy(result.rule_ids,
-               rule_store.rule_id_array,
+        memcpy(result.rule_ids, rule_store.rule_id_array,
                sizeof(uint32_t) * result.match_cnt);
+
+        for (uint32_t i = 0; i < result.match_cnt; i++) {
+            uint32_t rule_id = result.rule_ids[i];
+            printf("[DEBUG] Hyperscan 매칭된 룰 ID: %u, PCRE로 전달\n", rule_id);
+
+            TxStore tx;
+            InitTxStore(&tx);
+            SwafPcreMatchWithId(payload, len, rule_id, &tx);
+            FreeTxStore(&tx);
+        }
     }
 
     PmqCleanup(&rule_store);
