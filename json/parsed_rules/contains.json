@@ -1,0 +1,126 @@
+{
+  "955300": {
+    "operator": "@contains",
+    "regex": "<title>punkholicshell</title>",
+    "actions": "id:955300,phase:4,block,capture,t:none,t:removeWhitespace,t:lowercase,msg:'PuNkHoLic shell web shell',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}',tag:'language-php',tag:'platform-multi',tag:'attack-rce',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/WEB-SHELLS',tag:'capec/1000/225/122/17/650',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.outbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "PuNkHoLic shell web shell",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}",
+    "severity": "CRITICAL",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.outbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "language-php",
+      "platform-multi",
+      "attack-rce",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/WEB-SHELLS",
+      "capec/1000/225/122/17/650"
+    ],
+    "transformations": [
+      "none",
+      "removeWhitespace",
+      "lowercase"
+    ],
+    "chain": []
+  },
+  "955350": {
+    "operator": "@contains",
+    "regex": "<h1 style=\\",
+    "actions": ">webadmin.php</h1>\" \"id:955350,phase:4,block,capture,t:none,msg:'webadmin.php file manager',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}',tag:'language-php',tag:'platform-multi',tag:'attack-rce',tag:'paranoia-level/2',tag:'OWASP_CRS',tag:'OWASP_CRS/WEB-SHELLS',tag:'capec/1000/225/122/17/650',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.outbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'",
+    "msg": "webadmin.php file manager",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}",
+    "severity": "CRITICAL",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.outbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "language-php",
+      "platform-multi",
+      "attack-rce",
+      "paranoia-level/2",
+      "OWASP_CRS",
+      "OWASP_CRS/WEB-SHELLS",
+      "capec/1000/225/122/17/650"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "920610": {
+    "operator": "@contains",
+    "regex": "#",
+    "actions": "id:920610,phase:1,block,t:none,msg:'Raw (unencoded) fragment in request URI',logdata:'%{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-protocol',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/PROTOCOL-ENFORCEMENT',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "Raw (unencoded) fragment in request URI",
+    "logdata": "%{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "1",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-protocol",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/PROTOCOL-ENFORCEMENT"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "941181": {
+    "operator": "@contains",
+    "regex": "-->",
+    "actions": "id:941181,phase:2,block,capture,t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:lowercase,t:removeNulls,msg:'Node-Validator Deny List Keywords',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-xss',tag:'xss-perf-disable',tag:'paranoia-level/2',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-XSS',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.xss_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'",
+    "msg": "Node-Validator Deny List Keywords",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.xss_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-xss",
+      "xss-perf-disable",
+      "paranoia-level/2",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-XSS",
+      "capec/1000/152/242"
+    ],
+    "transformations": [
+      "none",
+      "utf8toUnicode",
+      "urlDecodeUni",
+      "htmlEntityDecode",
+      "jsDecode",
+      "cssDecode",
+      "lowercase",
+      "removeNulls"
+    ],
+    "chain": []
+  }
+}

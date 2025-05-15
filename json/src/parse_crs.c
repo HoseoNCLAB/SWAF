@@ -45,15 +45,19 @@ void process_rule(char *buf, json_t *rules_obj) {
     }
     free(op_regex);
 
-    // Extract actions
+        // Extract actions (allow missing actions for simple chain rules)
+    char *actions = strdup("");
     char *act_start = strchr(op_end + 1, '"');
-    char *act_end = strrchr(buf, '"');
-    if (!act_start || !act_end || act_end <= act_start) {
-        free(operator_name); free(regex_str); return;
+    if (act_start) {
+        char *act_end = strrchr(buf, '"');
+        if (act_end && act_end > act_start) {
+            char *actions_raw = strndup(act_start + 1, act_end - act_start - 1);
+            free(actions);
+            actions = remove_backslashes(actions_raw);
+            free(actions_raw);
+        }
     }
-    char *actions_raw = strndup(act_start + 1, act_end - act_start - 1);
-    char *actions = remove_backslashes(actions_raw);
-    free(actions_raw);
+    // if no action quotes, actions remains empty string
 
     // Determine ID (top-level or chain target)
     char id_buf[64];
@@ -179,13 +183,27 @@ void parse_directory(const char *path, json_t *rules_obj) {
     }
 }
 
+
 int main(int argc, char *argv[]) {
     const char *crs_path = (argc >= 2) ? argv[1] : CRSDIR;
     json_t *rules = json_object();
+
     parse_directory(crs_path, rules);
+
+    // 파싱된 룰 수 계산
+    size_t rule_count = json_object_size(rules);
+
+    // JSON 파일로 출력
     if (json_dump_file(rules, "All_parsed_rules.json", JSON_INDENT(2)) < 0) {
-        fprintf(stderr, "json_dump_file failed\n"); json_decref(rules); return 1;
+        fprintf(stderr, "json_dump_file failed\n");
+        json_decref(rules);
+        return 1;
     }
+
+    // 파싱된 룰 개수 출력
+    printf("총 %zu개의 룰을 파싱했습니다.\n", rule_count); //586개 파싱됨
+
     json_decref(rules);
     return 0;
 }
+

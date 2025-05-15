@@ -1,0 +1,118 @@
+{
+  "920540": {
+    "operator": "!@streq",
+    "regex": "JSON",
+    "actions": "id:920540,phase:2,block,t:none,msg:'Possible Unicode character bypass detected',logdata:'%{MATCHED_VAR_NAME}=%{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-protocol',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/PROTOCOL-ENFORCEMENT',tag:'capec/1000/255/153/267/72',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',chain",
+    "msg": "Possible Unicode character bypass detected",
+    "logdata": "%{MATCHED_VAR_NAME}=%{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-protocol",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/PROTOCOL-ENFORCEMENT",
+      "capec/1000/255/153/267/72"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": [
+      {
+        "operator": "@rx",
+        "regex": "(?i)\\x5cu[0-9a-f]{4}",
+        "actions": "setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+        "msg": "",
+        "logdata": "",
+        "severity": "",
+        "phase": "",
+        "ver": "",
+        "capture": true,
+        "block": false,
+        "setvar": [
+          "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+        ],
+        "tags": [],
+        "transformations": []
+      }
+    ]
+  },
+  "921250": {
+    "operator": "@streq",
+    "regex": "1",
+    "actions": "id:921250,phase:1,block,capture,t:none,t:lowercase,msg:'Old Cookies V1 usage attempt detected',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'attack-protocol',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/PROTOCOL-ATTACK',tag:'capec/1000/210/272/220/33',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "Old Cookies V1 usage attempt detected",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "1",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "attack-protocol",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/PROTOCOL-ATTACK",
+      "capec/1000/210/272/220/33"
+    ],
+    "transformations": [
+      "none",
+      "lowercase"
+    ],
+    "chain": []
+  },
+  "905100": {
+    "operator": "@streq",
+    "regex": "GET /",
+    "actions": "id:905100,phase:1,pass,t:none,nolog,tag:'application-multi',tag:'language-multi',tag:'platform-apache',tag:'attack-generic',tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',chain",
+    "msg": "",
+    "logdata": "",
+    "severity": "",
+    "phase": "1",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": false,
+    "setvar": [],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-apache",
+      "attack-generic",
+      "OWASP_CRS"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": [
+      {
+        "operator": "@ipMatch",
+        "regex": "127.0.0.1,::1",
+        "actions": "t:none,ctl:ruleRemoveByTag=OWASP_CRS,ctl:auditEngine=Off",
+        "msg": "",
+        "logdata": "",
+        "severity": "",
+        "phase": "",
+        "ver": "",
+        "capture": true,
+        "block": false,
+        "setvar": [],
+        "tags": [],
+        "transformations": [
+          "none"
+        ]
+      }
+    ]
+  }
+}

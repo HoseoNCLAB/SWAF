@@ -827,26 +827,42 @@
     ],
     "chain": [
       {
-        "operator": "@ge",
-        "regex": "%{tx.inbound_anomaly_score_threshold}",
-        "actions": "id:949110,phase:2,deny,t:none,msg:'Inbound Anomaly Score Exceeded (Total Score: %{TX.BLOCKING_INBOUND_ANOMALY_SCORE})',tag:'anomaly-evaluation',tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev'",
-        "msg": "Inbound Anomaly Score Exceeded (Total Score: %{TX.BLOCKING_INBOUND_ANOMALY_SCORE})",
+        "operator": "@eq",
+        "regex": "1",
+        "actions": "",
+        "msg": "",
         "logdata": "",
         "severity": "",
-        "phase": "2",
-        "ver": "OWASP_CRS/4.14.0-dev",
+        "phase": "",
+        "ver": "",
         "capture": true,
-        "block": true,
+        "block": false,
         "setvar": [],
-        "tags": [
-          "anomaly-evaluation",
-          "OWASP_CRS"
-        ],
-        "transformations": [
-          "none"
-        ]
+        "tags": [],
+        "transformations": []
       }
     ]
+  },
+  "949110": {
+    "operator": "@ge",
+    "regex": "%{tx.inbound_anomaly_score_threshold}",
+    "actions": "id:949110,phase:2,deny,t:none,msg:'Inbound Anomaly Score Exceeded (Total Score: %{TX.BLOCKING_INBOUND_ANOMALY_SCORE})',tag:'anomaly-evaluation',tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev'",
+    "msg": "Inbound Anomaly Score Exceeded (Total Score: %{TX.BLOCKING_INBOUND_ANOMALY_SCORE})",
+    "logdata": "",
+    "severity": "",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [],
+    "tags": [
+      "anomaly-evaluation",
+      "OWASP_CRS"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
   },
   "949011": {
     "operator": "@lt",
@@ -7195,26 +7211,42 @@
     ],
     "chain": [
       {
-        "operator": "@ge",
-        "regex": "%{tx.outbound_anomaly_score_threshold}",
-        "actions": "id:959100,phase:4,deny,t:none,msg:'Outbound Anomaly Score Exceeded (Total Score: %{tx.blocking_outbound_anomaly_score})',tag:'anomaly-evaluation',tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev'",
-        "msg": "Outbound Anomaly Score Exceeded (Total Score: %{tx.blocking_outbound_anomaly_score})",
+        "operator": "@eq",
+        "regex": "1",
+        "actions": "",
+        "msg": "",
         "logdata": "",
         "severity": "",
-        "phase": "4",
-        "ver": "OWASP_CRS/4.14.0-dev",
+        "phase": "",
+        "ver": "",
         "capture": true,
-        "block": true,
+        "block": false,
         "setvar": [],
-        "tags": [
-          "anomaly-evaluation",
-          "OWASP_CRS"
-        ],
-        "transformations": [
-          "none"
-        ]
+        "tags": [],
+        "transformations": []
       }
     ]
+  },
+  "959100": {
+    "operator": "@ge",
+    "regex": "%{tx.outbound_anomaly_score_threshold}",
+    "actions": "id:959100,phase:4,deny,t:none,msg:'Outbound Anomaly Score Exceeded (Total Score: %{tx.blocking_outbound_anomaly_score})',tag:'anomaly-evaluation',tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev'",
+    "msg": "Outbound Anomaly Score Exceeded (Total Score: %{tx.blocking_outbound_anomaly_score})",
+    "logdata": "",
+    "severity": "",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [],
+    "tags": [
+      "anomaly-evaluation",
+      "OWASP_CRS"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
   },
   "959011": {
     "operator": "@lt",

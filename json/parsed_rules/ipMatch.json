@@ -1,0 +1,61 @@
+{
+  "905110": {
+    "operator": "@ipMatch",
+    "regex": "127.0.0.1,::1",
+    "actions": "id:905110,phase:1,pass,t:none,nolog,tag:'application-multi',tag:'language-multi',tag:'platform-apache',tag:'attack-generic',tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',chain",
+    "msg": "",
+    "logdata": "",
+    "severity": "",
+    "phase": "1",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": false,
+    "setvar": [],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-apache",
+      "attack-generic",
+      "OWASP_CRS"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": [
+      {
+        "operator": "@endsWith",
+        "regex": "(internal dummy connection)",
+        "actions": "t:none,chain",
+        "msg": "",
+        "logdata": "",
+        "severity": "",
+        "phase": "",
+        "ver": "",
+        "capture": true,
+        "block": false,
+        "setvar": [],
+        "tags": [],
+        "transformations": [
+          "none"
+        ]
+      },
+      {
+        "operator": "@rx",
+        "regex": "^(?:GET /|OPTIONS \\*) HTTP/[12]\\.[01]$",
+        "actions": "t:none,ctl:ruleRemoveByTag=OWASP_CRS,ctl:auditEngine=Off",
+        "msg": "",
+        "logdata": "",
+        "severity": "",
+        "phase": "",
+        "ver": "",
+        "capture": true,
+        "block": false,
+        "setvar": [],
+        "tags": [],
+        "transformations": [
+          "none"
+        ]
+      }
+    ]
+  }
+}

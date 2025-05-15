@@ -1,0 +1,76 @@
+{
+  "941100": {
+    "operator": "@detectXSS",
+    "regex": "",
+    "actions": "id:941100,phase:2,block,t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,msg:'XSS Attack Detected via libinjection',logdata:'Matched Data: XSS data found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-xss',tag:'xss-perf-disable',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-XSS',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.xss_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "XSS Attack Detected via libinjection",
+    "logdata": "Matched Data: XSS data found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.xss_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-xss",
+      "xss-perf-disable",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-XSS",
+      "capec/1000/152/242"
+    ],
+    "transformations": [
+      "none",
+      "utf8toUnicode",
+      "urlDecodeUni",
+      "htmlEntityDecode",
+      "jsDecode",
+      "cssDecode",
+      "removeNulls"
+    ],
+    "chain": []
+  },
+  "941101": {
+    "operator": "@detectXSS",
+    "regex": "",
+    "actions": "id:941101,phase:1,block,capture,t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,msg:'XSS Attack Detected via libinjection',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-xss',tag:'xss-perf-disable',tag:'paranoia-level/2',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-XSS',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.xss_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'",
+    "msg": "XSS Attack Detected via libinjection",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "1",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.xss_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-xss",
+      "xss-perf-disable",
+      "paranoia-level/2",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-XSS",
+      "capec/1000/152/242"
+    ],
+    "transformations": [
+      "none",
+      "utf8toUnicode",
+      "urlDecodeUni",
+      "htmlEntityDecode",
+      "jsDecode",
+      "cssDecode",
+      "removeNulls"
+    ],
+    "chain": []
+  }
+}

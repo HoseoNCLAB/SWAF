@@ -1,0 +1,719 @@
+{
+  "953100": {
+    "operator": "@pmFromFile",
+    "regex": "php-errors.data",
+    "actions": "id:953100,phase:4,block,capture,t:none,msg:'PHP Information Leakage',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}',tag:'application-multi',tag:'language-php',tag:'platform-multi',tag:'attack-disclosure',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-PHP',tag:'capec/1000/118/116',tag:'PCI/6.5.6',ver:'OWASP_CRS/4.14.0-dev',severity:'ERROR',setvar:'tx.outbound_anomaly_score_pl1=+%{tx.error_anomaly_score}'",
+    "msg": "PHP Information Leakage",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}",
+    "severity": "ERROR",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.outbound_anomaly_score_pl1=+%{tx.error_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-php",
+      "platform-multi",
+      "attack-disclosure",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/DATA-LEAKAGES-PHP",
+      "capec/1000/118/116",
+      "PCI/6.5.6"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "953101": {
+    "operator": "@pmFromFile",
+    "regex": "php-errors-pl2.data",
+    "actions": "id:953101,phase:4,block,capture,t:none,msg:'PHP Information Leakage',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}',tag:'application-multi',tag:'language-php',tag:'platform-multi',tag:'attack-disclosure',tag:'paranoia-level/2',tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-PHP',tag:'capec/1000/118/116',tag:'PCI/6.5.6',ver:'OWASP_CRS/4.14.0-dev',severity:'ERROR',setvar:'tx.outbound_anomaly_score_pl2=+%{tx.error_anomaly_score}'",
+    "msg": "PHP Information Leakage",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}",
+    "severity": "ERROR",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.outbound_anomaly_score_pl2=+%{tx.error_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-php",
+      "platform-multi",
+      "attack-disclosure",
+      "paranoia-level/2",
+      "OWASP_CRS",
+      "OWASP_CRS/DATA-LEAKAGES-PHP",
+      "capec/1000/118/116",
+      "PCI/6.5.6"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "951100": {
+    "operator": "!@pmFromFile",
+    "regex": "sql-errors.data",
+    "actions": "id:951100,phase:4,pass,t:none,nolog,tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-disclosure',tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-SQL',tag:'capec/1000/118/116/54',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-SQL-ERROR-MATCH-PL1",
+    "msg": "",
+    "logdata": "",
+    "severity": "",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": false,
+    "setvar": [],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-disclosure",
+      "OWASP_CRS",
+      "OWASP_CRS/DATA-LEAKAGES-SQL",
+      "capec/1000/118/116/54"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "932120": {
+    "operator": "@pmFromFile",
+    "regex": "windows-powershell-commands.data",
+    "actions": "id:932120,phase:2,block,capture,t:none,t:cmdLine,msg:'Remote Command Execution: Windows PowerShell Command Found',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-shell',tag:'language-powershell',tag:'platform-windows',tag:'attack-rce',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-RCE',tag:'capec/1000/152/248/88',tag:'PCI/6.5.2',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.rce_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "Remote Command Execution: Windows PowerShell Command Found",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.rce_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-shell",
+      "language-powershell",
+      "platform-windows",
+      "attack-rce",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-RCE",
+      "capec/1000/152/248/88",
+      "PCI/6.5.2"
+    ],
+    "transformations": [
+      "none",
+      "cmdLine"
+    ],
+    "chain": []
+  },
+  "932160": {
+    "operator": "@pmFromFile",
+    "regex": "unix-shell.data",
+    "actions": "id:932160,phase:2,block,capture,t:none,t:cmdLine,t:normalizePath,msg:'Remote Command Execution: Unix Shell Code Found',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-shell',tag:'platform-unix',tag:'attack-rce',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-RCE',tag:'capec/1000/152/248/88',tag:'PCI/6.5.2',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.rce_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "Remote Command Execution: Unix Shell Code Found",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.rce_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-shell",
+      "platform-unix",
+      "attack-rce",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-RCE",
+      "capec/1000/152/248/88",
+      "PCI/6.5.2"
+    ],
+    "transformations": [
+      "none",
+      "cmdLine",
+      "normalizePath"
+    ],
+    "chain": []
+  },
+  "932180": {
+    "operator": "@pmFromFile",
+    "regex": "restricted-upload.data",
+    "actions": "id:932180,phase:2,block,capture,t:none,msg:'Restricted File Upload Attempt',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-rce',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-RCE',tag:'capec/1000/152/248/88',tag:'PCI/6.5.2',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.rce_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "Restricted File Upload Attempt",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.rce_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-rce",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-RCE",
+      "capec/1000/152/248/88",
+      "PCI/6.5.2"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "932161": {
+    "operator": "@pmFromFile",
+    "regex": "unix-shell.data",
+    "actions": "id:932161,phase:1,block,capture,t:none,t:cmdLine,t:normalizePath,msg:'Remote Command Execution: Unix Shell Code Found in REQUEST_HEADERS',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-shell',tag:'platform-unix',tag:'attack-rce',tag:'paranoia-level/2',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-RCE',tag:'capec/1000/152/248/88',tag:'PCI/6.5.2',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.rce_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'",
+    "msg": "Remote Command Execution: Unix Shell Code Found in REQUEST_HEADERS",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "1",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.rce_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-shell",
+      "platform-unix",
+      "attack-rce",
+      "paranoia-level/2",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-RCE",
+      "capec/1000/152/248/88",
+      "PCI/6.5.2"
+    ],
+    "transformations": [
+      "none",
+      "cmdLine",
+      "normalizePath"
+    ],
+    "chain": []
+  },
+  "934110": {
+    "operator": "@pmFromFile",
+    "regex": "ssrf.data",
+    "actions": "id:934110,phase:2,block,capture,t:none,msg:'Possible Server Side Request Forgery (SSRF) Attack: Cloud provider metadata URL in Parameter',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-ssrf',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-GENERIC',tag:'capec/1000/225/664',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.rce_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "Possible Server Side Request Forgery (SSRF) Attack: Cloud provider metadata URL in Parameter",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.rce_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-ssrf",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-GENERIC",
+      "capec/1000/225/664"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "930120": {
+    "operator": "@pmFromFile",
+    "regex": "lfi-os-files.data",
+    "actions": "id:930120,phase:2,block,capture,t:none,t:utf8toUnicode,t:urlDecodeUni,t:normalizePathWin,msg:'OS File Access Attempt',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-lfi',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-LFI',tag:'capec/1000/255/153/126',tag:'PCI/6.5.4',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.lfi_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "OS File Access Attempt",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.lfi_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-lfi",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-LFI",
+      "capec/1000/255/153/126",
+      "PCI/6.5.4"
+    ],
+    "transformations": [
+      "none",
+      "utf8toUnicode",
+      "urlDecodeUni",
+      "normalizePathWin"
+    ],
+    "chain": []
+  },
+  "930130": {
+    "operator": "@pmFromFile",
+    "regex": "restricted-files.data",
+    "actions": "id:930130,phase:1,block,capture,t:none,t:utf8toUnicode,t:urlDecodeUni,t:normalizePathWin,msg:'Restricted File Access Attempt',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-lfi',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-LFI',tag:'capec/1000/255/153/126',tag:'PCI/6.5.4',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.lfi_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "Restricted File Access Attempt",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "1",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.lfi_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-lfi",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-LFI",
+      "capec/1000/255/153/126",
+      "PCI/6.5.4"
+    ],
+    "transformations": [
+      "none",
+      "utf8toUnicode",
+      "urlDecodeUni",
+      "normalizePathWin"
+    ],
+    "chain": []
+  },
+  "930121": {
+    "operator": "@pmFromFile",
+    "regex": "lfi-os-files.data",
+    "actions": "id:930121,phase:1,block,capture,t:none,t:utf8toUnicode,t:urlDecodeUni,t:normalizePathWin,msg:'OS File Access Attempt in REQUEST_HEADERS',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-lfi',tag:'paranoia-level/2',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-LFI',tag:'capec/1000/255/153/126',tag:'PCI/6.5.4',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.lfi_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'",
+    "msg": "OS File Access Attempt in REQUEST_HEADERS",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "1",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.lfi_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-lfi",
+      "paranoia-level/2",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-LFI",
+      "capec/1000/255/153/126",
+      "PCI/6.5.4"
+    ],
+    "transformations": [
+      "none",
+      "utf8toUnicode",
+      "urlDecodeUni",
+      "normalizePathWin"
+    ],
+    "chain": []
+  },
+  "913100": {
+    "operator": "@pmFromFile",
+    "regex": "scanners-user-agents.data",
+    "actions": "id:913100,phase:1,block,capture,t:none,msg:'Found User-Agent associated with security scanner',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-reputation-scanner',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/SCANNER-DETECTION',tag:'capec/1000/118/224/541/310',tag:'PCI/6.5.10',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "Found User-Agent associated with security scanner",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "1",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-reputation-scanner",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/SCANNER-DETECTION",
+      "capec/1000/118/224/541/310",
+      "PCI/6.5.10"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "952110": {
+    "operator": "@pmFromFile",
+    "regex": "java-errors.data",
+    "actions": "id:952110,phase:4,block,capture,t:none,msg:'Java Errors',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}',tag:'application-multi',tag:'language-java',tag:'platform-multi',tag:'attack-disclosure',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-JAVA',tag:'capec/1000/118/116',tag:'PCI/6.5.6',ver:'OWASP_CRS/4.14.0-dev',severity:'ERROR',setvar:'tx.outbound_anomaly_score_pl1=+%{tx.error_anomaly_score}'",
+    "msg": "Java Errors",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}",
+    "severity": "ERROR",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.outbound_anomaly_score_pl1=+%{tx.error_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-java",
+      "platform-multi",
+      "attack-disclosure",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/DATA-LEAKAGES-JAVA",
+      "capec/1000/118/116",
+      "PCI/6.5.6"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "955100": {
+    "operator": "@pmFromFile",
+    "regex": "web-shells-php.data",
+    "actions": "id:955100,phase:4,block,capture,t:none,msg:'PHP Web shell detected',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}',tag:'language-php',tag:'platform-multi',tag:'attack-rce',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/WEB-SHELLS',tag:'capec/1000/225/122/17/650',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.outbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "PHP Web shell detected",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}",
+    "severity": "CRITICAL",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.outbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "language-php",
+      "platform-multi",
+      "attack-rce",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/WEB-SHELLS",
+      "capec/1000/225/122/17/650"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "955400": {
+    "operator": "@pmFromFile",
+    "regex": "web-shells-asp.data",
+    "actions": "id:955400,phase:4,block,capture,t:none,msg:'ASP Web shell detected',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}',tag:'language-php',tag:'platform-multi',tag:'attack-rce',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/WEB-SHELLS',tag:'capec/1000/225/122/17/650',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.outbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "ASP Web shell detected",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}",
+    "severity": "CRITICAL",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.outbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "language-php",
+      "platform-multi",
+      "attack-rce",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/WEB-SHELLS",
+      "capec/1000/225/122/17/650"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "944130": {
+    "operator": "@pmFromFile",
+    "regex": "java-classes.data",
+    "actions": "id:944130,phase:2,block,t:none,msg:'Suspicious Java class detected',logdata:'Matched Data: %{MATCHED_VAR} found within %{MATCHED_VAR_NAME}',tag:'application-multi',tag:'language-java',tag:'platform-multi',tag:'attack-rce',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-JAVA',tag:'capec/1000/152/248',tag:'PCI/6.5.2',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.rce_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "Suspicious Java class detected",
+    "logdata": "Matched Data: %{MATCHED_VAR} found within %{MATCHED_VAR_NAME}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.rce_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-java",
+      "platform-multi",
+      "attack-rce",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-JAVA",
+      "capec/1000/152/248",
+      "PCI/6.5.2"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "954120": {
+    "operator": "@pmFromFile",
+    "regex": "iis-errors.data",
+    "actions": "id:954120,phase:4,block,capture,t:none,msg:'IIS Information Leakage',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}',tag:'application-multi',tag:'language-multi',tag:'platform-iis',tag:'platform-windows',tag:'attack-disclosure',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-IIS',tag:'capec/1000/118/116',tag:'PCI/6.5.6',ver:'OWASP_CRS/4.14.0-dev',severity:'ERROR',setvar:'tx.outbound_anomaly_score_pl1=+%{tx.error_anomaly_score}'",
+    "msg": "IIS Information Leakage",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}",
+    "severity": "ERROR",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.outbound_anomaly_score_pl1=+%{tx.error_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-iis",
+      "platform-windows",
+      "attack-disclosure",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/DATA-LEAKAGES-IIS",
+      "capec/1000/118/116",
+      "PCI/6.5.6"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "933120": {
+    "operator": "@pmFromFile",
+    "regex": "php-config-directives.data",
+    "actions": "id:933120,phase:2,block,capture,t:none,t:normalisePath,msg:'PHP Injection Attack: Configuration Directive Found',logdata:'Matched Data: %{TX.1} found within %{TX.933120_MATCHED_VAR_NAME}: %{TX.933120_MATCHED_VAR}',tag:'application-multi',tag:'language-php',tag:'platform-multi',tag:'attack-injection-php',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-PHP',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.933120_matched_var=%{MATCHED_VAR}',setvar:'tx.933120_matched_var_name=%{MATCHED_VAR_NAME}',chain",
+    "msg": "PHP Injection Attack: Configuration Directive Found",
+    "logdata": "Matched Data: %{TX.1} found within %{TX.933120_MATCHED_VAR_NAME}: %{TX.933120_MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.933120_matched_var=%{MATCHED_VAR}'",
+      "'tx.933120_matched_var_name=%{MATCHED_VAR_NAME}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-php",
+      "platform-multi",
+      "attack-injection-php",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-PHP",
+      "capec/1000/152/242"
+    ],
+    "transformations": [
+      "none",
+      "normalisePath"
+    ],
+    "chain": [
+      {
+        "operator": "@rx",
+        "regex": "\\b([^\\s]+)\\s*=[^=]",
+        "actions": "capture,chain",
+        "msg": "",
+        "logdata": "",
+        "severity": "",
+        "phase": "",
+        "ver": "",
+        "capture": true,
+        "block": false,
+        "setvar": [],
+        "tags": [],
+        "transformations": []
+      },
+      {
+        "operator": "@pmFromFile",
+        "regex": "php-config-directives.data",
+        "actions": "setvar:'tx.php_injection_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+        "msg": "",
+        "logdata": "",
+        "severity": "",
+        "phase": "",
+        "ver": "",
+        "capture": true,
+        "block": false,
+        "setvar": [
+          "'tx.php_injection_score=+%{tx.critical_anomaly_score}'",
+          "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+        ],
+        "tags": [],
+        "transformations": []
+      }
+    ]
+  },
+  "933130": {
+    "operator": "@pmFromFile",
+    "regex": "php-variables.data",
+    "actions": "id:933130,phase:2,block,capture,t:none,t:normalisePath,t:urlDecodeUni,msg:'PHP Injection Attack: Variables Found',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-php',tag:'platform-multi',tag:'attack-injection-php',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-PHP',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.php_injection_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "PHP Injection Attack: Variables Found",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.php_injection_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-php",
+      "platform-multi",
+      "attack-injection-php",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-PHP",
+      "capec/1000/152/242"
+    ],
+    "transformations": [
+      "none",
+      "normalisePath",
+      "urlDecodeUni"
+    ],
+    "chain": []
+  },
+  "933150": {
+    "operator": "@pmFromFile",
+    "regex": "php-function-names-933150.data",
+    "actions": "id:933150,phase:2,block,capture,t:none,msg:'PHP Injection Attack: High-Risk PHP Function Name Found',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-php',tag:'platform-multi',tag:'attack-injection-php',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-PHP',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.php_injection_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "PHP Injection Attack: High-Risk PHP Function Name Found",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.php_injection_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-php",
+      "platform-multi",
+      "attack-injection-php",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-PHP",
+      "capec/1000/152/242"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": []
+  },
+  "933151": {
+    "operator": "@pmFromFile",
+    "regex": "php-function-names-933151.data",
+    "actions": "id:933151,phase:2,block,capture,t:none,msg:'PHP Injection Attack: Medium-Risk PHP Function Name Found',logdata:'Matched Data: %{TX.1} found within %{TX.933151_MATCHED_VAR_NAME}: %{TX.933151_MATCHED_VAR}',tag:'application-multi',tag:'language-php',tag:'platform-multi',tag:'attack-injection-php',tag:'paranoia-level/2',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-PHP',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.933151_matched_var=%{MATCHED_VAR}',setvar:'tx.933151_matched_var_name=%{MATCHED_VAR_NAME}',chain",
+    "msg": "PHP Injection Attack: Medium-Risk PHP Function Name Found",
+    "logdata": "Matched Data: %{TX.1} found within %{TX.933151_MATCHED_VAR_NAME}: %{TX.933151_MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.933151_matched_var=%{MATCHED_VAR}'",
+      "'tx.933151_matched_var_name=%{MATCHED_VAR_NAME}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-php",
+      "platform-multi",
+      "attack-injection-php",
+      "paranoia-level/2",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-PHP",
+      "capec/1000/152/242"
+    ],
+    "transformations": [
+      "none"
+    ],
+    "chain": [
+      {
+        "operator": "@rx",
+        "regex": "\\b([^\\s]+)\\s*[(]",
+        "actions": "capture,chain",
+        "msg": "",
+        "logdata": "",
+        "severity": "",
+        "phase": "",
+        "ver": "",
+        "capture": true,
+        "block": false,
+        "setvar": [],
+        "tags": [],
+        "transformations": []
+      },
+      {
+        "operator": "@pmFromFile",
+        "regex": "php-function-names-933151.data",
+        "actions": "setvar:'tx.php_injection_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'",
+        "msg": "",
+        "logdata": "",
+        "severity": "",
+        "phase": "",
+        "ver": "",
+        "capture": true,
+        "block": false,
+        "setvar": [
+          "'tx.php_injection_score=+%{tx.critical_anomaly_score}'",
+          "'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'"
+        ],
+        "tags": [],
+        "transformations": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "953010": {
+    "operator": "@pm",
+    "regex": "gzip compress deflate br zstd",
+    "actions": "id:953010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-PHP',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-953-DATA-LEAKAGES-PHP",
+    "msg": "",
+    "logdata": "",
+    "severity": "",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": false,
+    "setvar": [],
+    "tags": [
+      "OWASP_CRS",
+      "OWASP_CRS/DATA-LEAKAGES-PHP"
+    ],
+    "transformations": [],
+    "chain": []
+  },
+  "951010": {
+    "operator": "@pm",
+    "regex": "gzip compress deflate br zstd",
+    "actions": "id:951010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-SQL',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-951-DATA-LEAKAGES-SQL",
+    "msg": "",
+    "logdata": "",
+    "severity": "",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": false,
+    "setvar": [],
+    "tags": [
+      "OWASP_CRS",
+      "OWASP_CRS/DATA-LEAKAGES-SQL"
+    ],
+    "transformations": [],
+    "chain": []
+  },
+  "950010": {
+    "operator": "@pm",
+    "regex": "gzip compress deflate br zstd",
+    "actions": "id:950010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-950-DATA-LEAKAGES",
+    "msg": "",
+    "logdata": "",
+    "severity": "",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": false,
+    "setvar": [],
+    "tags": [
+      "OWASP_CRS",
+      "OWASP_CRS/DATA-LEAKAGES"
+    ],
+    "transformations": [],
+    "chain": []
+  },
+  "952010": {
+    "operator": "@pm",
+    "regex": "gzip compress deflate br zstd",
+    "actions": "id:952010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-JAVA',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-952-DATA-LEAKAGES-JAVA",
+    "msg": "",
+    "logdata": "",
+    "severity": "",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": false,
+    "setvar": [],
+    "tags": [
+      "OWASP_CRS",
+      "OWASP_CRS/DATA-LEAKAGES-JAVA"
+    ],
+    "transformations": [],
+    "chain": []
+  },
+  "955010": {
+    "operator": "@pm",
+    "regex": "gzip compress deflate br zstd",
+    "actions": "id:955010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/WEB-SHELLS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-955-WEB-SHELLS",
+    "msg": "",
+    "logdata": "",
+    "severity": "",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": false,
+    "setvar": [],
+    "tags": [
+      "OWASP_CRS",
+      "OWASP_CRS/WEB-SHELLS"
+    ],
+    "transformations": [],
+    "chain": []
+  },
+  "954010": {
+    "operator": "@pm",
+    "regex": "gzip compress deflate br zstd",
+    "actions": "id:954010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-IIS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-954-DATA-LEAKAGES-IIS",
+    "msg": "",
+    "logdata": "",
+    "severity": "",
+    "phase": "4",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": false,
+    "setvar": [],
+    "tags": [
+      "OWASP_CRS",
+      "OWASP_CRS/DATA-LEAKAGES-IIS"
+    ],
+    "transformations": [],
+    "chain": []
+  },
+  "933190": {
+    "operator": "@pm",
+    "regex": "?>",
+    "actions": "id:933190,phase:2,block,capture,t:none,t:urlDecodeUni,msg:'PHP Injection Attack: PHP Closing Tag Found',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-php',tag:'platform-multi',tag:'attack-injection-php',tag:'paranoia-level/3',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-PHP',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.php_injection_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl3=+%{tx.critical_anomaly_score}'",
+    "msg": "PHP Injection Attack: PHP Closing Tag Found",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.php_injection_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl3=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-php",
+      "platform-multi",
+      "attack-injection-php",
+      "paranoia-level/3",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-PHP",
+      "capec/1000/152/242"
+    ],
+    "transformations": [
+      "none",
+      "urlDecodeUni"
+    ],
+    "chain": []
+  },
+  "941180": {
+    "operator": "@pm",
+    "regex": "document.cookie document.domain document.querySelector document.body.appendChild document.write .parentnode .innerhtml window.location -moz-binding <!-- <![cdata[",
+    "actions": "id:941180,phase:2,block,capture,t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,msg:'Node-Validator Deny List Keywords',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-xss',tag:'xss-perf-disable',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-XSS',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.xss_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+    "msg": "Node-Validator Deny List Keywords",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.xss_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-xss",
+      "xss-perf-disable",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-XSS",
+      "capec/1000/152/242"
+    ],
+    "transformations": [
+      "none",
+      "utf8toUnicode",
+      "urlDecodeUni",
+      "htmlEntityDecode",
+      "jsDecode",
+      "cssDecode",
+      "removeNulls"
+    ],
+    "chain": []
+  }
+}

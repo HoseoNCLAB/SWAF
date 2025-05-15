@@ -1,0 +1,70 @@
+{
+  "942100": {
+    "operator": "@detectSQLi",
+    "regex": "",
+    "actions": "id:942100,phase:2,block,capture,t:none,t:utf8toUnicode,t:urlDecodeUni,t:removeNulls,msg:'SQL Injection Attack Detected via libinjection',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-sqli',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-SQLI',tag:'capec/1000/152/248/66',tag:'PCI/6.5.2',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',multiMatch,setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}',setvar:'tx.sql_injection_score=+%{tx.critical_anomaly_score}'",
+    "msg": "SQL Injection Attack Detected via libinjection",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "2",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
+      "'tx.sql_injection_score=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-sqli",
+      "paranoia-level/1",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-SQLI",
+      "capec/1000/152/248/66",
+      "PCI/6.5.2"
+    ],
+    "transformations": [
+      "none",
+      "utf8toUnicode",
+      "urlDecodeUni",
+      "removeNulls"
+    ],
+    "chain": []
+  },
+  "942101": {
+    "operator": "@detectSQLi",
+    "regex": "",
+    "actions": "id:942101,phase:1,block,capture,t:none,t:utf8toUnicode,t:urlDecodeUni,t:removeNulls,msg:'SQL Injection Attack Detected via libinjection',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-sqli',tag:'paranoia-level/2',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-SQLI',tag:'capec/1000/152/248/66',tag:'PCI/6.5.2',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.sql_injection_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'",
+    "msg": "SQL Injection Attack Detected via libinjection",
+    "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+    "severity": "CRITICAL",
+    "phase": "1",
+    "ver": "OWASP_CRS/4.14.0-dev",
+    "capture": true,
+    "block": true,
+    "setvar": [
+      "'tx.sql_injection_score=+%{tx.critical_anomaly_score}'",
+      "'tx.inbound_anomaly_score_pl2=+%{tx.critical_anomaly_score}'"
+    ],
+    "tags": [
+      "application-multi",
+      "language-multi",
+      "platform-multi",
+      "attack-sqli",
+      "paranoia-level/2",
+      "OWASP_CRS",
+      "OWASP_CRS/ATTACK-SQLI",
+      "capec/1000/152/248/66",
+      "PCI/6.5.2"
+    ],
+    "transformations": [
+      "none",
+      "utf8toUnicode",
+      "urlDecodeUni",
+      "removeNulls"
+    ],
+    "chain": []
+  }
+}
