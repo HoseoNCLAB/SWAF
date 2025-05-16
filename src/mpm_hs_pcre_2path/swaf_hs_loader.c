@@ -10,8 +10,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-MpmCtx mpm_ctx;  // 글로벌 MPM 컨텍스트
+MpmCtx mpm_ctx;
 
+/**
+ * SwafInitHyperscan
+ * - Hyperscan 룰 초기화 함수
+ * - JSON 파일을 로드하여 Hyperscan 룰을 초기화
+ *
+ * @param json_path: JSON 파일 경로
+ * @return: 0 (성공), -1 (실패)
+ * @note: 이 함수는 JSON 파일을 로드하고, Hyperscan 룰을 초기화하여 등록
+ * @note: 등록된 룰은 Hyperscan DB에 컴파일됨
+ */
 int SwafInitHyperscan(const char *json_path) {
     json_error_t error;
     json_t *root = json_load_file(json_path, 0, &error);
@@ -35,26 +45,20 @@ int SwafInitHyperscan(const char *json_path) {
             continue;
         }
 
-
-        /* 디버그용 */
+        /** 디버그용 */
         // printf("[DEBUG] Hyperscan 등록 예정 정규식((?i) 제거 전): %s\n", regex_raw);
 
-
-        // flags 설정
         uint32_t flags = HS_FLAG_DOTALL | HS_FLAG_MULTILINE;
         bool is_ci = false;
 
-        // (?i) 플래그 제거 여부 확인
         if (strncmp(regex_raw, "(?i)", 4) == 0) {
             regex_raw += 4;
             flags |= HS_FLAG_CASELESS;
             is_ci = true;
         }
 
-
-        /* 디버그용 */
+        /** 디버그용 */
         // printf("[DEBUG] Hyperscan 등록 예정 정규식((?i) 제거 후): %s\n", regex_raw);
-
 
         uint32_t sid = (uint32_t)atoi(rule_id);
         uint32_t pid = sid;
@@ -91,6 +95,15 @@ int SwafInitHyperscan(const char *json_path) {
     return 0;
 }
 
+
+/**
+ * SwafConnectPatternSids
+ * - Hyperscan 룰과 SID 연결 함수
+ * - Hyperscan 룰에 대해 SID를 설정
+ *
+ * @return: 0 (성공), -1 (실패)
+ * @note: 이 함수는 Hyperscan 룰에 대해 SID를 설정하여 룰을 연결
+ */
 int SwafConnectPatternSids(void) {
     SCHSCtx *ctx = (SCHSCtx *)mpm_ctx.ctx;
     if (ctx == NULL || ctx->pattern_db == NULL) {
@@ -121,7 +134,7 @@ int SwafConnectPatternSids(void) {
         p->sids = sid_arr;
         p->sids_size = 1;
 
-        /* 디버그용 */
+        /** 디버그용 */
         // printf("[CONNECT] Pattern %u (id=%u) → SID 설정 완료: %u\n", i, p->id, sid_arr[0]);
     }
 

@@ -4,11 +4,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/* 전역 캐시 테이블 포인터 */
+/** 전역 캐시 테이블 포인터 */
 static PcreCacheTable *hs_cache_table = NULL;
 static PcreCacheTable *pcre_only_cache_table = NULL;
+static PcreCacheTable *chain_cache_table = NULL;
 
-/* 전역 캐시 테이블을 가져옴 */
+
+/** 전역 캐시 테이블을 가져옴 */
 PcreCacheTable *HsCacheTableGetGlobal(void) {
     return hs_cache_table;
 }
@@ -17,7 +19,19 @@ PcreCacheTable *PcreOnlyCacheTableGetGlobal(void) {
     return pcre_only_cache_table;
 }
 
-/* 해시 테이블 생성 */
+PcreCacheTable *ChainCacheTableGetGlobal(void) {
+    return chain_cache_table;
+}
+
+
+/**
+ * @brief 해시 테이블을 생성하는 함수
+ * @param size 해시 테이블의 크기
+ * @param hash 해시 함수
+ * @param cmp 문자열 비교 함수
+ * @param free_func 메모리 해제 함수
+ * @return PcreCacheTable* 생성된 캐시 테이블 포인터
+ */
 PcreCacheTable *CreatePcreCacheTable(uint32_t size,
                                      PcreHashFunc hash,
                                      PcreCompareFunc cmp,
@@ -42,7 +56,12 @@ PcreCacheTable *CreatePcreCacheTable(uint32_t size,
     return t;
 }
 
-/* 해시 테이블 제거 */
+
+/**
+ * @brief 해시 테이블을 해제하는 함수
+ * @param t 해제할 캐시 테이블 포인터
+ * @note 이 함수는 주어진 캐시 테이블을 해제
+ */
 void DestroyPcreCacheTable(PcreCacheTable *t) {
     if (!t) return;
 
@@ -60,7 +79,16 @@ void DestroyPcreCacheTable(PcreCacheTable *t) {
     free(t);
 }
 
-/* 해시 테이블에 새로운 항목 추가 */
+
+/**
+ * @brief 해시 테이블에 항목을 추가하는 함수
+ * @param t 캐시 테이블 포인터
+ * @param key 해시 키
+ * @param len 해시 키 길이
+ * @param data 해시 값 (PCRE 캐시 엔트리)
+ * @return int 0: 성공, -1: 실패
+ * @note 이 함수는 주어진 키와 값을 사용하여 캐시 테이블에 항목을 추가
+ */
 int PcreCacheTableInsert(PcreCacheTable *t, const char *key, uint16_t len, void *data) {
     if (!t || !key || len == 0 || !data) return -1;
 
@@ -77,7 +105,15 @@ int PcreCacheTableInsert(PcreCacheTable *t, const char *key, uint16_t len, void 
     return 0;
 }
 
-/* 키를 기준으로 해시 테이블에서 항목 조회 */
+
+/**
+ * @brief 해시 테이블에서 항목을 조회하는 함수
+ * @param t 캐시 테이블 포인터
+ * @param key 해시 키
+ * @param len 해시 키 길이
+ * @return void* 해시 값 (PCRE 캐시 엔트리) 또는 NULL
+ * @note 이 함수는 주어진 키를 사용하여 캐시 테이블에서 항목을 조회
+ */
 void *PcreCacheTableLookup(PcreCacheTable *t, const char *key, uint16_t len) {
     if (!t || !key) return NULL;
 
@@ -91,7 +127,12 @@ void *PcreCacheTableLookup(PcreCacheTable *t, const char *key, uint16_t len) {
     return NULL;
 }
 
-/* 모든 항목을 출력 (디버그 용도) */
+
+/**
+ * @brief 해시 테이블의 내용을 덤프하는 함수
+ * @param t 캐시 테이블 포인터
+ * @note 이 함수는 주어진 캐시 테이블의 내용을 덤프
+ */
 void PcreCacheTableDump(PcreCacheTable *t) {
     if (!t) return;
 
@@ -105,7 +146,14 @@ void PcreCacheTableDump(PcreCacheTable *t) {
     }
 }
 
-/* 문자열 기반 해시 함수 (31 해싱) */
+
+/**
+ * @brief 해시 함수
+ * @param key 해시 키
+ * @param len 해시 키 길이
+ * @return uint32_t 해시 값
+ * @note 이 함수는 주어진 문자열을 해싱하여 해시 값을 생성
+ */
 static uint32_t PcreHash(const char *key, uint16_t len) {
     const uint8_t *d = (const uint8_t *)key;
     uint32_t h = 0;
@@ -114,32 +162,177 @@ static uint32_t PcreHash(const char *key, uint16_t len) {
     return h;
 }
 
-/* 문자열 기반 키 비교 함수 */
+
+/**
+ * @brief 문자열 비교 함수
+ * @param k1 첫 번째 문자열
+ * @param l1 첫 번째 문자열 길이
+ * @param k2 두 번째 문자열
+ * @param l2 두 번째 문자열 길이
+ * @return int 0: 같음, 1: 다름
+ * @note 이 함수는 해시 테이블에서 키를 비교하는 데 사용
+ */
 static int PcreCompare(const char *k1, uint16_t l1, const char *k2, uint16_t l2) {
     return l1 == l2 && strncmp(k1, k2, l1) == 0;
 }
 
-/* PcreCacheEntry 메모리 해제 */
+
+/**
+ * @brief PCRE 캐시 엔트리 메모리 해제 함수
+ * @param data 해제할 데이터 포인터
+ * @note 이 함수는 PCRE 캐시 엔트리를 해제
+ */
 void FreePcreEntry(void *data) {
     PcreCacheEntry *entry = (PcreCacheEntry *)data;
-    if (entry) {
+    if (!entry) return;
+
+    if (entry->rule_id) {
         free(entry->rule_id);
-        if (entry->re) pcre2_code_free(entry->re);
+        entry->rule_id = NULL;
+    }
+
+    if (entry->re) {
+        pcre2_code_free(entry->re);
+        entry->re = NULL;
+    }
+
+    entry->next = NULL;     /** 명시적으로 초기화 */
+    free(entry);
+}
+
+
+/**
+ * @brief 체인 캐시 테이블에 항목을 추가하는 함수
+ * @param rule_id 룰 ID
+ * @param step 체인 단계
+ * @param re PCRE 정규식
+ * @param is_negated 부정 조건 여부
+ * @return int 0: 성공, -1: 실패
+ * @note 이 함수는 주어진 룰 ID와 PCRE 정규식을 사용하여 체인 캐시 테이블에 항목을 추가
+ *       is_negated가 1이면 부정 조건으로 처리
+ */
+int PcreCacheTableAddChain(const char *rule_id, unsigned long step, pcre2_code *re, int is_negated) {
+    if (!rule_id || !re) return -1;
+
+    /** 체인 ID 생성 */
+    char chain_id[64];
+    snprintf(chain_id, sizeof(chain_id), "%s_%lu", rule_id, step);
+
+    //printf("[DEBUG] rule_id: %s, step: %lu, chain_id: %s\n", rule_id, step, chain_id);
+
+    /** 기존 체인 엔트리 검색 */
+    PcreCacheEntry *existing_entry = (PcreCacheEntry *)PcreCacheTableLookup(ChainCacheTableGetGlobal(), rule_id, strlen(rule_id));
+    PcreCacheEntry *last_step = existing_entry;
+
+    /** 체인 베이스가 아직 없다면 첫 번째로 추가 */
+    if (!existing_entry) {
+        /** 첫 번째 체인 단계 생성 */
+        PcreCacheEntry *base_entry = (PcreCacheEntry *)malloc(sizeof(PcreCacheEntry));
+        if (!base_entry) {
+            fprintf(stderr, "[PCRE] 체인 베이스 엔트리 메모리 할당 실패 (%s)\n", rule_id);
+            pcre2_code_free(re);
+            return -1;
+        }
+
+        base_entry->rule_id = strdup(rule_id); 
+        base_entry->re = re;
+        base_entry->is_negated = is_negated;
+        base_entry->next = NULL;
+
+        /** 체인 베이스를 캐시에 추가 */
+        if (PcreCacheTableInsert(ChainCacheTableGetGlobal(), rule_id, strlen(rule_id), base_entry) != 0) {
+            fprintf(stderr, "[PCRE] 체인 베이스 추가 실패 (%s)\n", rule_id);
+            free(base_entry->rule_id);
+            free(base_entry);
+            pcre2_code_free(re);
+            return -1;
+        }
+
+        printf("[DEBUG] 체인 베이스 추가 성공: %s (단계=0, negated=%d)\n", rule_id, is_negated);
+        return 0;
+    }
+
+    /** 기존 체인 엔트리의 마지막 단계로 이동 */
+    while (last_step->next != NULL) {
+        last_step = last_step->next;
+    }
+
+    /** 새로운 체인 단계 생성 */
+    PcreCacheEntry *new_step = (PcreCacheEntry *)malloc(sizeof(PcreCacheEntry));
+    if (!new_step) {
+        fprintf(stderr, "[PCRE] 체인 단계 엔트리 메모리 할당 실패 (%s)\n", chain_id);
+        pcre2_code_free(re);
+        return -1;
+    }
+
+    new_step->rule_id = strdup(chain_id);
+    new_step->re = re;
+    new_step->is_negated = is_negated;
+    new_step->next = NULL;
+
+    /** 기존 체인 엔드에 연결 */
+    last_step->next = new_step;
+    printf("[DEBUG] 체인 단계 추가 성공: %s (단계=%lu, negated=%d)\n", chain_id, step, is_negated);
+
+    return 0;
+}
+
+
+/**
+ * @brief 체인 캐시 엔트리 메모리 해제 함수
+ * @param data 해제할 데이터 포인터
+ * @note 이 함수는 체인 캐시 엔트리를 해제
+ */
+void FreePcreChainEntry(void *data) {
+    PcreCacheEntry *entry = (PcreCacheEntry *)data;
+    while (entry) {
+        PcreCacheEntry *next = entry->next;
+
+        if (entry->rule_id) {
+            free(entry->rule_id);
+            entry->rule_id = NULL;
+        }
+
+        if (entry->re) {
+            pcre2_code_free(entry->re);
+            entry->re = NULL;
+        }
+
+        entry->next = NULL;
         free(entry);
+
+        entry = next;
     }
 }
 
-/* 글로벌 캐시 테이블 초기화 */
+
+/**
+ * @brief 글로벌 캐시 테이블 초기화
+ * @return int 0: 성공, -1: 실패
+ * @note 이 함수는 글로벌 캐시 테이블을 초기화
+ */
 int PcreCacheTableInit(void) {
     if (hs_cache_table != NULL || pcre_only_cache_table != NULL)
         return 0;
 
     hs_cache_table = CreatePcreCacheTable(1024, PcreHash, PcreCompare, FreePcreEntry);
     pcre_only_cache_table = CreatePcreCacheTable(1024, PcreHash, PcreCompare, FreePcreEntry);
-    return (hs_cache_table == NULL || pcre_only_cache_table == NULL) ? -1 : 0;
+    chain_cache_table = CreatePcreCacheTable(1024, PcreHash, PcreCompare, FreePcreChainEntry);
+    
+    if (!hs_cache_table || !pcre_only_cache_table || !chain_cache_table) {
+        fprintf(stderr, "[ERROR] 글로벌 캐시 테이블 초기화 실패\n");
+        return -1;
+    }
+
+    printf("[DEBUG] 글로벌 캐시 테이블 초기화 완료\n");
+    return 0;
 }
 
-/* 글로벌 테이블 해제 */
+
+/**
+ * @brief 글로벌 캐시 테이블 해제
+ * @note 이 함수는 글로벌 캐시 테이블을 해제
+ */
 void PcreCacheTableFree(void) {
     if (hs_cache_table) DestroyPcreCacheTable(hs_cache_table);
     if (pcre_only_cache_table) DestroyPcreCacheTable(pcre_only_cache_table);
@@ -147,13 +340,27 @@ void PcreCacheTableFree(void) {
     pcre_only_cache_table = NULL;
 }
 
-/* 룰 ID가 부정 조건인지 확인 */
+
+/**
+ * @brief PCRE-only 룰 ID가 부정 조건인지 확인하는 함수
+ * @param rule_id 룰 ID
+ * @return int 1: 부정 조건, 0: 정규식 없음
+ * @note 이 함수는 주어진 룰 ID에 대해 부정 조건 여부를 확인    
+ */
 int PcreCacheTableIsNegated(const char *rule_id) {
     PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(PcreOnlyCacheTableGetGlobal(), rule_id, strlen(rule_id));
     return entry ? entry->is_negated : 0;
 }
 
-/* 룰 ID와 컴파일된 정규식을 HS-only 캐시에 추가 */
+
+/**
+ * @brief HS-only 캐시 테이블에 항목을 추가하는 함수
+ * @param rule_id 룰 ID
+ * @param re PCRE 정규식
+ * @param is_negated 부정 조건 여부
+ * @return int 0: 성공, -1: 실패
+ * @note 이 함수는 주어진 룰 ID와 PCRE 정규식을 사용하여 HS-only 캐시 테이블에 항목을 추가
+ */
 int PcreCacheTableAddToHsCache(const char *rule_id, pcre2_code *re, int is_negated) {
     if (!rule_id || !re) return -1;
 
@@ -167,7 +374,15 @@ int PcreCacheTableAddToHsCache(const char *rule_id, pcre2_code *re, int is_negat
     return PcreCacheTableInsert(HsCacheTableGetGlobal(), rule_id, strlen(rule_id), entry);
 }
 
-/* 룰 ID와 컴파일된 정규식을 PCRE-only 캐시에 추가 */
+
+/**
+ * @brief HS-only 캐시 테이블에 항목을 추가하는 함수
+ * @param rule_id 룰 ID
+ * @param re PCRE 정규식
+ * @param is_negated 부정 조건 여부
+ * @return int 0: 성공, -1: 실패
+ * @note 이 함수는 주어진 룰 ID와 PCRE 정규식을 사용하여 HS-only 캐시 테이블에 항목을 추가
+ */
 int PcreCacheTableAddToPcreCache(const char *rule_id, pcre2_code *re, int is_negated) {
     if (!rule_id || !re) return -1;
 
@@ -177,6 +392,11 @@ int PcreCacheTableAddToPcreCache(const char *rule_id, pcre2_code *re, int is_neg
     entry->rule_id = strdup(rule_id);
     entry->re = re;
     entry->is_negated = is_negated;
+    
+    /** 단일 룰이므로 next를 명시적으로 NULL로 설정 */
+    entry->next = NULL;
+
+    printf("[DEBUG] 단일 룰 캐시에 추가: %s (negated=%d, next=%p)\n", rule_id, is_negated, entry->next);
 
     return PcreCacheTableInsert(PcreOnlyCacheTableGetGlobal(), rule_id, strlen(rule_id), entry);
 }

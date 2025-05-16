@@ -11,6 +11,17 @@
 extern MpmCtx mpm_ctx;
 static MpmThreadCtx mpm_thread_ctx;
 
+/**
+ * SwafMatchHyperscan
+ * - Hyperscan 룰 매칭 함수
+ * - 입력된 페이로드에 대해 Hyperscan 룰을 매칭하고 결과를 반환
+ *
+ * @param payload: 입력된 페이로드
+ * @return: SigMatchResult 구조체 (매칭된 룰 ID 배열 및 개수 포함)
+ * @note: 이 함수는 Hyperscan 룰을 매칭하고, 매칭된 룰 ID를 SigMatchResult 구조체에 저장
+ * @note: 매칭된 룰 ID는 SigMatchResult 구조체의 rule_ids 배열에 저장됨
+ * @note: 매칭된 룰 개수는 SigMatchResult 구조체의 match_cnt 필드에 저장됨
+ */
 SigMatchResult SwafMatchHyperscan(const char *payload) {
     SigMatchResult result;
     memset(&result, 0, sizeof(result));
@@ -40,9 +51,9 @@ SigMatchResult SwafMatchHyperscan(const char *payload) {
     uint32_t matched = SCHSSearch(&mpm_ctx, &mpm_thread_ctx, &rule_store,
                                   (const uint8_t *)payload, (uint32_t)len);
 
-    printf("\n[DEBUG] 매칭된 룰 개수: %u\n", rule_store.rule_id_array_cnt);
+    printf("\n[DEBUG] 매칭된 HS 룰 개수: %u\n", rule_store.rule_id_array_cnt);
 
-    /* Hyperscan 매칭 성공 시 모든 룰 ID를 결과에 저장 */
+    /** Hyperscan 매칭 성공 시 모든 룰 ID를 결과에 저장 */
     result.match_cnt = rule_store.rule_id_array_cnt;
     if (result.match_cnt > 0 && rule_store.rule_id_array != NULL) {
         memcpy(result.rule_ids, rule_store.rule_id_array,
