@@ -5,7 +5,7 @@
 #include "tx_store.h"
 
 
-int SwafMatchPcresingle(const char *rule_id, const char *subject, TxStore *tx);
+int SwafMatchPcreSingle(const char *rule_id, const char *subject, TxStore *tx);
 int SwafMatchPcreChain(const char *chain_id, const char *payload, TxStore *tx);
 int SwafPcreMatchWithId(const char *subject, int len, uint32_t rule_id, TxStore *tx);
 

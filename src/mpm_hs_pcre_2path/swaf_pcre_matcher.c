@@ -39,10 +39,11 @@ static int MatchPcreSingle(PcreCacheEntry *entry, const char *payload, TxStore *
     int rc = pcre2_match(entry->re, (PCRE2_SPTR)payload, strlen(payload), 0, 0, match_data, NULL);
     pcre2_match_data_free(match_data);
 
+    /** TODO: 부정 매칭 로직 수정 */
     int is_negated = entry->is_negated;
     int match_success = is_negated ? (rc <= 0) : (rc > 0);
 
-    if (match_success && tx) {
+    if (match_success && tx && !is_negated) {
         int capture_success = SwafCapturePcreSingle(entry->rule_id, payload, tx, 0);
         if (!capture_success) {
             fprintf(stderr, "[PCRE] 단일 룰 캡처 실패 (룰 ID: %s)\n", entry->rule_id);
@@ -51,9 +52,17 @@ static int MatchPcreSingle(PcreCacheEntry *entry, const char *payload, TxStore *
     }
 
     if (match_success) {
-        printf("[DEBUG] 단일 룰 매칭 성공: %s (negated=%d)\n", entry->rule_id, is_negated);
+        if (is_negated) {
+            printf("[DEBUG] 단일 룰 부정 매칭 성공: %s (negated=1)\n", entry->rule_id);
+        } else {
+            printf("[ALERT] 단일 룰 매칭 성공: %s (negated=0)\n", entry->rule_id);
+        }
     } else {
-        printf("[DEBUG] 단일 룰 매칭 실패: %s (negated=%d)\n", entry->rule_id, is_negated);
+        if (is_negated) {
+            printf("[ALERT] 단일 룰 부정 매칭 실패: %s (negated=1)\n", entry->rule_id);
+        } else {
+            printf("[DEBUG] 단일 룰 매칭 실패: %s (negated=0)\n", entry->rule_id);
+        }
     }
 
     return match_success;
@@ -110,7 +119,7 @@ static int MatchPcreChain(PcreCacheEntry *chain_entry, const char *payload, TxSt
 }
 
 /**
- * SwafMatchPcre
+ * SwafMatchPcreSingle
  * - 단일 룰 매칭 함수 (PCRE-only 캐시)
  * - 룰 ID와 페이로드를 받아 매칭 수행
  * - 매칭 성공 시 TX 캡처 수행
@@ -122,7 +131,7 @@ static int MatchPcreChain(PcreCacheEntry *chain_entry, const char *payload, TxSt
  * @note: 이 함수는 단일 룰 캐시에서 룰 ID를 검색하여 매칭 수행
  * @note: 룰 ID는 문자열로 제공되며, 룰 ID가 NULL인 경우 오류 메시지 출력
  */
-int SwafMatchPcresingle(const char *rule_id, const char *payload, TxStore *tx) {
+int SwafMatchPcreSingle(const char *rule_id, const char *payload, TxStore *tx) {
     if (!rule_id || !payload || !tx) {
         fprintf(stderr, "[PCRE] 입력이 NULL입니다 (룰 ID = %s)\n", rule_id ? rule_id : "알 수 없음");
         return 0;

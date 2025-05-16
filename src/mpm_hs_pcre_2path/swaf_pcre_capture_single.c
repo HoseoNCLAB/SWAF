@@ -50,6 +50,8 @@ int SwafCapturePcreSingle(const char *rule_id, const char *subject, TxStore *tx,
     /** 정규식 매칭 수행 */
     int rc = pcre2_match(entry->re, (PCRE2_SPTR)subject, strlen(subject), 0, 0, match_data, NULL);
     if (rc <= 0) {
+        /** 디버그 출력 */
+        //fprintf(stderr, "[PCRE] 캡처 실패: 룰 %s (매칭 실패, rc=%d)\n", rule_id, rc);
         pcre2_match_data_free(match_data);
         return 0;
     }
