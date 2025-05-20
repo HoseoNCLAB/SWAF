@@ -108,9 +108,12 @@ int main() {
             printf("\n[INFO] Hyperscan 미탐지 → PCRE-only 매칭 시도 중...\n");
 
             int matched = 0;
-            int negated_only_count = 0;
-            int total_matched_count = 0;
+            int negated_fail_count = 0;
+            int negated_success_count = 0;
+            int total_negated_rules = 0;
+            int pcre_match_count = 0;
             PcreCacheTable *pcre_cache = PcreOnlyCacheTableGetGlobal();
+
             if (!pcre_cache) {
                 fprintf(stderr, "[ERROR] PCRE-only 캐시 테이블 없음\n");
                 continue;
@@ -123,20 +126,27 @@ int main() {
                     TxStore tx;
                     InitTxStore(&tx);
 
-                    /** 단일 룰 매칭 시도 */
-                    if (SwafMatchPcreSingle(bucket->key, payload, &tx)) {
+                    /** 단일 룰 매칭 + 판정 + 캡처까지 수행 */
+                    int is_malicious = SwafMatchPcreSingle(bucket->key, payload, &tx);
+
+                    /** 통계 기록 */
+                    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(pcre_cache, bucket->key, strlen(bucket->key));
+                    if (entry && entry->is_negated) {
+                        total_negated_rules++;
+                        if (!is_malicious)
+                            negated_success_count++;
+                        else
+                            negated_fail_count++;
+                    } else if (is_malicious) {
                         matched = 1;
                         pcre_match_count++;
-                        total_matched_count++;
-                        PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(pcre_cache, bucket->key, strlen(bucket->key));
-                        if (entry && entry->is_negated)
-                            negated_only_count++;
                     }
 
                     FreeTxStore(&tx);
                     bucket = bucket->next;
                 }
             }
+            printf("\n");
 
             /** 체인 룰 매칭 */
             PcreCacheTable *chain_cache = ChainCacheTableGetGlobal();
@@ -146,11 +156,27 @@ int main() {
                     TxStore tx;
                     InitTxStore(&tx);
 
-                    /** 체인 룰 매칭 시도 */
-                    if (SwafCapturePcreChain(bucket->key, payload, &tx)) {
-                        matched = 1;
-                        pcre_match_count++;
-                        printf("[ALERT] 체인 PCRE 룰 매칭됨: %s\n", bucket->key);
+                    /** 체인 엔트리 조회 (통계용 is_negated 접근용) */
+                    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(chain_cache, bucket->key, strlen(bucket->key));
+                    if (!entry || !entry->next) {
+                        bucket = bucket->next;
+                        continue;
+                    }
+
+                    int is_malicious = SwafMatchPcreChain(bucket->key, payload, &tx);
+
+                    if (entry->is_negated) {
+                        total_negated_rules++;
+                        if (!is_malicious) {
+                            negated_success_count++; /** 부정 룰: 매칭 안됨 -> 정상 */
+                        } else {
+                            negated_fail_count++;    /** 부정 룰: 매칭 실패 -> 악성 */
+                        }
+                    } else {
+                        if (is_malicious) {
+                            matched = 1;
+                            pcre_match_count++;
+                        }
                     }
 
                     FreeTxStore(&tx);
@@ -158,27 +184,12 @@ int main() {
                 }
             }
 
+            /** 매칭 결과 출력 */
             printf("\n[INFO] PCRE 탐지된 룰 %d개\n", pcre_match_count);
-            if (negated_only_count > 0)
-                printf("[INFO] (부정 매칭 룰 탐지 %d개)\n", negated_only_count);
+            printf("[INFO] 부정 매칭 성공한 룰 %d개 / 전체 부정 룰 %d개\n", negated_success_count, total_negated_rules);
 
-            /**
-            * 모든 단일 부정 매칭 룰이 "성공"한 경우만 정상 트래픽으로 간주
-            * (즉, 전체 부정 매칭 룰 개수 == negated_only_count)
-            * 하나라도 실패(악성)면 정상 트래픽 아님
-            */
-            int total_negated_rules = 0;
-            for (uint32_t i = 0; i < pcre_cache->size; i++) {
-                Bucket *bucket = pcre_cache->buckets[i];
-                while (bucket) {
-                    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(pcre_cache, bucket->key, strlen(bucket->key));
-                    if (entry && entry->is_negated)
-                        total_negated_rules++;
-                    bucket = bucket->next;
-                }
-            }
-
-            if (!matched || (total_negated_rules > 0 && total_negated_rules == negated_only_count && total_matched_count == negated_only_count)) {
+            /** 모든 부정 매칭이 성공한 경우만 정상으로 간주 */
+            if (total_negated_rules == negated_success_count && matched == 0) {
                 printf("[RESULT] 탐지된 룰 없음 (정상 트래픽)\n");
             } else {
                 printf("[RESULT] 악성 트래픽 탐지됨\n");

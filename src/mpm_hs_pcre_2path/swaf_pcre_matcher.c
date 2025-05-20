@@ -9,17 +9,18 @@
 #include <string.h>
 #include <stdio.h>
 
+
 /**
- * 단일 룰 매칭
- * - 단일 PCRE 룰을 캐시에서 검색하여 매칭
+ * MatchPcreSingle
+ * - 단일 룰 매칭
+ * - 룰 ID와 페이로드를 받아 매칭 수행
  *
- * @param entry: PCRE 룰 캐시 엔트리
+ * @param entry: 단일 룰 캐시 엔트리
  * @param payload: 매칭할 페이로드
- * @param tx: TX 스토어
  * @return: 1 (매칭 성공), 0 (매칭 실패)
- * @note: 이 함수는 단일 PCRE 룰을 매칭하고, 매칭 성공 시 TX 캡처를 수행
+ * @note: 이 함수는 단일 룰을 매칭
  */
-static int MatchPcreSingle(PcreCacheEntry *entry, const char *payload, TxStore *tx) {
+static int MatchPcreSingle(PcreCacheEntry *entry, const char *payload) {
     if (!entry || !entry->re) {
         fprintf(stderr, "[PCRE] 단일 룰이 NULL이거나 정규식이 없습니다 (룰 ID: %s)\n", entry ? entry->rule_id : "알 수 없음");
         return 0;
@@ -39,46 +40,36 @@ static int MatchPcreSingle(PcreCacheEntry *entry, const char *payload, TxStore *
     int rc = pcre2_match(entry->re, (PCRE2_SPTR)payload, strlen(payload), 0, 0, match_data, NULL);
     pcre2_match_data_free(match_data);
 
-    /** TODO: 부정 매칭 로직 수정 */
     int is_negated = entry->is_negated;
-    int match_success = is_negated ? (rc <= 0) : (rc > 0);
+    int is_malicious = (!is_negated && rc > 0) || (is_negated && rc <= 0);
 
-    if (match_success && tx && !is_negated) {
-        int capture_success = SwafCapturePcreSingle(entry->rule_id, payload, tx, 0);
-        if (!capture_success) {
-            fprintf(stderr, "[PCRE] 단일 룰 캡처 실패 (룰 ID: %s)\n", entry->rule_id);
-            return 0;
-        }
-    }
-
-    if (match_success) {
-        if (is_negated) {
-            printf("[DEBUG] 단일 룰 부정 매칭 성공: %s (negated=1)\n", entry->rule_id);
-        } else {
-            printf("[ALERT] 단일 룰 매칭 성공: %s (negated=0)\n", entry->rule_id);
-        }
+    if (is_malicious) {
+        if (is_negated)
+            printf("[ALERT] 단일 룰 부정 매칭 실패 (악성): %s (negated=1)\n", entry->rule_id);
+        else
+            printf("[ALERT] 단일 룰 매칭 성공 (악성): %s (negated=0)\n", entry->rule_id);
     } else {
-        if (is_negated) {
-            printf("[ALERT] 단일 룰 부정 매칭 실패: %s (negated=1)\n", entry->rule_id);
-        } else {
-            printf("[DEBUG] 단일 룰 매칭 실패: %s (negated=0)\n", entry->rule_id);
-        }
+        if (is_negated)
+            printf("[DEBUG] 단일 룰 부정 매칭 성공 (정상): %s (negated=1)\n", entry->rule_id);
+        else
+            printf("[DEBUG] 단일 룰 매칭 실패 (정상): %s (negated=0)\n", entry->rule_id);
     }
 
-    return match_success;
+    return is_malicious;
 }
 
+
 /**
- * 체인 룰 매칭
- * - 체인 베이스에서 시작하여 모든 단계를 순차적으로 매칭
+ * MatchPcreChain
+ * - 체인 룰 매칭
+ * - 체인 베이스 ID와 페이로드를 받아 매칭 수행
  *
  * @param chain_entry: 체인 룰 캐시 엔트리
  * @param payload: 매칭할 페이로드
- * @param tx: TX 스토어
  * @return: 1 (매칭 성공), 0 (매칭 실패)
- * @note: 이 함수는 체인 룰을 매칭하고, 매칭 성공 시 TX 캡처를 수행
+ * @note: 이 함수는 체인 룰을 매칭
  */
-static int MatchPcreChain(PcreCacheEntry *chain_entry, const char *payload, TxStore *tx) {
+static int MatchPcreChain(PcreCacheEntry *chain_entry, const char *payload) {
     if (!chain_entry || !chain_entry->next) {
         fprintf(stderr, "[PCRE] 체인 엔트리가 NULL이거나 첫 단계가 없습니다 (체인 베이스: %s)\n", chain_entry ? chain_entry->rule_id : "알 수 없음");
         return 0;
@@ -97,30 +88,30 @@ static int MatchPcreChain(PcreCacheEntry *chain_entry, const char *payload, TxSt
             return 0;
         }
 
+        /** 정규식 매칭 시도 */
         int rc = pcre2_match(current_step->re, (PCRE2_SPTR)payload, strlen(payload), 0, 0, match_data, NULL);
-        pcre2_match_data_free(match_data);
 
         int is_negated = current_step->is_negated;
-        if (is_negated ? (rc > 0) : (rc <= 0)) {
-            printf("[DEBUG] 체인 단계 매칭 실패: %s (단계: %s, negated=%d)\n", chain_entry->rule_id, current_step->rule_id, is_negated);
-            return 0;
-        }
+        int match_fail = is_negated ? (rc > 0) : (rc <= 0);
 
-        if (tx && !SwafCapturePcreChain(chain_entry->rule_id, payload, tx)) {
-            fprintf(stderr, "[PCRE] 체인 단계 캡처 실패 (체인 베이스: %s, 단계: %s)\n", chain_entry->rule_id, current_step->rule_id);
+        if (match_fail) {
+            printf("[DEBUG] 체인 단계 매칭 실패: %s (단계: %s, negated=%d)\n",
+                   chain_entry->rule_id, current_step->rule_id, is_negated);
+            pcre2_match_data_free(match_data);
             return 0;
         }
 
         current_step = current_step->next;
+        pcre2_match_data_free(match_data);
     }
 
-    printf("[DEBUG] 체인 룰 매칭 성공: %s\n", chain_entry->rule_id);
     return 1;
 }
 
+
 /**
  * SwafMatchPcreSingle
- * - 단일 룰 매칭 함수 (PCRE-only 캐시)
+ * - 단일 룰 매칭 함수 (단일 캐시)
  * - 룰 ID와 페이로드를 받아 매칭 수행
  * - 매칭 성공 시 TX 캡처 수행
  *
@@ -129,7 +120,6 @@ static int MatchPcreChain(PcreCacheEntry *chain_entry, const char *payload, TxSt
  * @param tx: TX 스토어
  * @return: 1 (매칭 성공), 0 (매칭 실패)
  * @note: 이 함수는 단일 룰 캐시에서 룰 ID를 검색하여 매칭 수행
- * @note: 룰 ID는 문자열로 제공되며, 룰 ID가 NULL인 경우 오류 메시지 출력
  */
 int SwafMatchPcreSingle(const char *rule_id, const char *payload, TxStore *tx) {
     if (!rule_id || !payload || !tx) {
@@ -144,20 +134,30 @@ int SwafMatchPcreSingle(const char *rule_id, const char *payload, TxStore *tx) {
         return 0;
     }
 
-    return MatchPcreSingle(entry, payload, tx);
+    /** 1. 매칭 여부 판단 + 로그 출력 */
+    int is_malicious = MatchPcreSingle(entry, payload);
+
+    /** 2. 악성일 경우만 TX 저장 및 출력 */
+    if (is_malicious) {
+        SwafCapturePcreSingle(rule_id, payload, tx, 0);
+    }
+
+    return is_malicious;
 }
+
 
 /**
  * SwafMatchPcreChain
  * - 체인 룰 매칭 함수 (체인 캐시)
- * - 주어진 체인 베이스 ID에 대해 매칭된 모든 단계를 캡처
+ * - 체인 베이스 ID와 페이로드를 받아 매칭 수행
+ * - 매칭 성공 시 TX 캡처 수행
  *
  * @param chain_base_id: 체인 베이스 ID
  * @param payload: 매칭할 페이로드
  * @param tx: TX 스토어
  * @return: 1 (매칭 성공), 0 (매칭 실패)
- * @note: 이 함수는 체인 룰을 매칭하고, 매칭 성공 시 TX 캡처를 수행
- * @note: 체인 룰 ID는 문자열로 제공되며, 룰 ID가 NULL인 경우 오류 메시지 출력
+ * @note: 이 함수는 체인 룰 캐시에서 체인 베이스 ID를 검색하여 매칭 수행
+ * @note: 체인 베이스 ID가 NULL인 경우 오류 메시지 출력
  */
 int SwafMatchPcreChain(const char *chain_base_id, const char *payload, TxStore *tx) {
     if (!chain_base_id || !payload || !tx) {
@@ -165,14 +165,24 @@ int SwafMatchPcreChain(const char *chain_base_id, const char *payload, TxStore *
         return 0;
     }
 
-    /** 체인 룰 캐시에서만 검색 */
-    PcreCacheEntry *chain_entry = (PcreCacheEntry *)PcreCacheTableLookup(ChainCacheTableGetGlobal(), chain_base_id, strlen(chain_base_id));
-    if (!chain_entry || chain_entry->next == NULL) {
-        fprintf(stderr, "[PCRE] 체인 베이스 '%s' 없음 또는 단일 룰로 잘못 처리됨 (체인 캐시)\n", chain_base_id);
+    PcreCacheEntry *chain_entry = (PcreCacheEntry *)PcreCacheTableLookup(
+        ChainCacheTableGetGlobal(), chain_base_id, strlen(chain_base_id));
+    if (!chain_entry || !chain_entry->next) {
+        fprintf(stderr, "[PCRE] 체인 베이스 '%s' 없음 또는 첫 단계 없음 (체인 캐시)\n", chain_base_id);
         return 0;
     }
 
-    return MatchPcreChain(chain_entry, payload, tx);
+    int is_malicious = MatchPcreChain(chain_entry, payload);
+
+    if (is_malicious) {
+        if (!SwafCapturePcreChain(chain_base_id, payload, tx)) {
+            fprintf(stderr, "[PCRE] 체인 룰 캡처 실패: %s\n", chain_base_id);
+        } else {
+            printf("[ALERT] 체인 룰 '%s' 매칭 성공 (모든 단계 통과)\n", chain_base_id);
+        }
+    }
+
+    return is_malicious;
 }
 
 /**

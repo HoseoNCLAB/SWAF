@@ -47,15 +47,16 @@ static inline void FreeTxStore(TxStore *tx) {
 }
 
 /**
- * TX 변수 출력 (디버깅용)
+ * PrintTx
+ * - TX 스토어의 캡처된 그룹을 출력하는 함수
+ *
+ * @param rule_id: 룰 ID
+ * @param tx: TX 스토어
  */
-static inline void PrintTxStore(const TxStore *tx) {
-    if (!tx) return;
+static inline void PrintTx(const char *rule_id, const TxStore *tx) {
     for (int i = 0; i < MAX_CAPTURE_GROUPS; ++i) {
         if (tx->tx[i]) {
-            printf("[DEBUG] TX.%d = %s (주소: %p)\n", i, tx->tx[i], (void *)tx->tx[i]);
-        } else {
-            printf("[DEBUG] TX.%d = (null)\n", i);
+            printf("[TX] 룰 %s - 그룹 %d: '%s'\n", rule_id, i, tx->tx[i]);
         }
     }
 }
