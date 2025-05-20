@@ -1,5 +1,8 @@
 {
   "953011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:953011,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-953-DATA-LEAKAGES-PHP",
@@ -18,6 +21,9 @@
     "chain": []
   },
   "953012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:953012,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-953-DATA-LEAKAGES-PHP",
@@ -36,6 +42,9 @@
     "chain": []
   },
   "953013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:953013,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-953-DATA-LEAKAGES-PHP",
@@ -54,6 +63,9 @@
     "chain": []
   },
   "953014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:953014,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-953-DATA-LEAKAGES-PHP",
@@ -72,6 +84,9 @@
     "chain": []
   },
   "953015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:953015,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-953-DATA-LEAKAGES-PHP",
@@ -90,6 +105,9 @@
     "chain": []
   },
   "953016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:953016,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-953-DATA-LEAKAGES-PHP",
@@ -108,6 +126,9 @@
     "chain": []
   },
   "953017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:953017,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-953-DATA-LEAKAGES-PHP",
@@ -126,6 +147,9 @@
     "chain": []
   },
   "953018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:953018,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-953-DATA-LEAKAGES-PHP",
@@ -144,6 +168,9 @@
     "chain": []
   },
   "911011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:911011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-911-METHOD-ENFORCEMENT",
@@ -162,6 +189,9 @@
     "chain": []
   },
   "911012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:911012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-911-METHOD-ENFORCEMENT",
@@ -180,6 +210,9 @@
     "chain": []
   },
   "911013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:911013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-911-METHOD-ENFORCEMENT",
@@ -198,6 +231,9 @@
     "chain": []
   },
   "911014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:911014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-911-METHOD-ENFORCEMENT",
@@ -216,6 +252,9 @@
     "chain": []
   },
   "911015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:911015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-911-METHOD-ENFORCEMENT",
@@ -234,6 +273,9 @@
     "chain": []
   },
   "911016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:911016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-911-METHOD-ENFORCEMENT",
@@ -252,6 +294,9 @@
     "chain": []
   },
   "911017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:911017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-911-METHOD-ENFORCEMENT",
@@ -270,6 +315,9 @@
     "chain": []
   },
   "911018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:911018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-911-METHOD-ENFORCEMENT",
@@ -288,6 +336,9 @@
     "chain": []
   },
   "949011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:949011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-949-BLOCKING-EVALUATION",
@@ -306,6 +357,9 @@
     "chain": []
   },
   "949012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:949012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-949-BLOCKING-EVALUATION",
@@ -324,6 +378,9 @@
     "chain": []
   },
   "949013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:949013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-949-BLOCKING-EVALUATION",
@@ -342,6 +399,9 @@
     "chain": []
   },
   "949014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:949014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-949-BLOCKING-EVALUATION",
@@ -360,6 +420,9 @@
     "chain": []
   },
   "949015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:949015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-949-BLOCKING-EVALUATION",
@@ -378,6 +441,9 @@
     "chain": []
   },
   "949016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:949016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-949-BLOCKING-EVALUATION",
@@ -396,6 +462,9 @@
     "chain": []
   },
   "949017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:949017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-949-BLOCKING-EVALUATION",
@@ -414,6 +483,9 @@
     "chain": []
   },
   "949018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:949018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-949-BLOCKING-EVALUATION",
@@ -432,6 +504,9 @@
     "chain": []
   },
   "901450": {
+    "variables": [
+      "TX:sampling_rnd100"
+    ],
     "operator": "!@lt",
     "regex": "%{tx.sampling_percentage}",
     "actions": "id:901450,phase:1,pass,log,noauditlog,msg:'Sampling: Disable the rule engine based on sampling_percentage %{TX.sampling_percentage} and random number %{TX.sampling_rnd100}',tag:'OWASP_CRS',ctl:ruleRemoveByTag=OWASP_CRS,ver:'OWASP_CRS/4.14.0-dev'",
@@ -450,6 +525,9 @@
     "chain": []
   },
   "901500": {
+    "variables": [
+      "TX:detection_paranoia_level"
+    ],
     "operator": "@lt",
     "regex": "%{tx.blocking_paranoia_level}",
     "actions": "id:901500,phase:1,deny,status:500,t:none,log,msg:'Detection paranoia level configured is lower than the paranoia level itself. This is illegal. Blocking request. Aborting',tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev'",
@@ -470,6 +548,9 @@
     "chain": []
   },
   "951011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:951011,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-951-DATA-LEAKAGES-SQL",
@@ -488,6 +569,9 @@
     "chain": []
   },
   "951012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:951012,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-951-DATA-LEAKAGES-SQL",
@@ -506,6 +590,9 @@
     "chain": []
   },
   "951013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:951013,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-951-DATA-LEAKAGES-SQL",
@@ -524,6 +611,9 @@
     "chain": []
   },
   "951014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:951014,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-951-DATA-LEAKAGES-SQL",
@@ -542,6 +632,9 @@
     "chain": []
   },
   "951015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:951015,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-951-DATA-LEAKAGES-SQL",
@@ -560,6 +653,9 @@
     "chain": []
   },
   "951016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:951016,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-951-DATA-LEAKAGES-SQL",
@@ -578,6 +674,9 @@
     "chain": []
   },
   "951017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:951017,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-951-DATA-LEAKAGES-SQL",
@@ -596,6 +695,9 @@
     "chain": []
   },
   "951018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:951018,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-951-DATA-LEAKAGES-SQL",
@@ -614,6 +716,9 @@
     "chain": []
   },
   "942011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:942011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-942-APPLICATION-ATTACK-SQLI",
@@ -632,6 +737,9 @@
     "chain": []
   },
   "942012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:942012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-942-APPLICATION-ATTACK-SQLI",
@@ -650,6 +758,9 @@
     "chain": []
   },
   "942013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:942013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-942-APPLICATION-ATTACK-SQLI",
@@ -668,6 +779,9 @@
     "chain": []
   },
   "942014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:942014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-942-APPLICATION-ATTACK-SQLI",
@@ -686,6 +800,9 @@
     "chain": []
   },
   "942015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:942015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-942-APPLICATION-ATTACK-SQLI",
@@ -704,6 +821,9 @@
     "chain": []
   },
   "942016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:942016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-942-APPLICATION-ATTACK-SQLI",
@@ -722,6 +842,9 @@
     "chain": []
   },
   "942017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:942017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-942-APPLICATION-ATTACK-SQLI",
@@ -740,6 +863,9 @@
     "chain": []
   },
   "942018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:942018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-942-APPLICATION-ATTACK-SQLI",
@@ -758,6 +884,9 @@
     "chain": []
   },
   "932011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:932011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-932-APPLICATION-ATTACK-RCE",
@@ -776,6 +905,9 @@
     "chain": []
   },
   "932012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:932012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-932-APPLICATION-ATTACK-RCE",
@@ -794,6 +926,9 @@
     "chain": []
   },
   "932013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:932013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-932-APPLICATION-ATTACK-RCE",
@@ -812,6 +947,9 @@
     "chain": []
   },
   "932014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:932014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-932-APPLICATION-ATTACK-RCE",
@@ -830,6 +968,9 @@
     "chain": []
   },
   "932015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:932015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-932-APPLICATION-ATTACK-RCE",
@@ -848,6 +989,9 @@
     "chain": []
   },
   "932016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:932016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-932-APPLICATION-ATTACK-RCE",
@@ -866,6 +1010,9 @@
     "chain": []
   },
   "932017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:932017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-932-APPLICATION-ATTACK-RCE",
@@ -884,6 +1031,9 @@
     "chain": []
   },
   "932018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:932018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-932-APPLICATION-ATTACK-RCE",
@@ -902,6 +1052,9 @@
     "chain": []
   },
   "980046": {
+    "variables": [
+      "TX:REPORTING_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:980046,phase:5,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REPORTING",
@@ -920,6 +1073,9 @@
     "chain": []
   },
   "980049": {
+    "variables": [
+      "TX:REPORTING_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:980049,phase:5,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REPORTING",
@@ -938,6 +1094,9 @@
     "chain": []
   },
   "980051": {
+    "variables": [
+      "TX:REPORTING_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:980051,phase:5,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REPORTING",
@@ -956,6 +1115,9 @@
     "chain": []
   },
   "980011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:980011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-980-CORRELATION",
@@ -974,6 +1136,9 @@
     "chain": []
   },
   "980012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:980012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-980-CORRELATION",
@@ -992,6 +1157,9 @@
     "chain": []
   },
   "980013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:980013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-980-CORRELATION",
@@ -1010,6 +1178,9 @@
     "chain": []
   },
   "980014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:980014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-980-CORRELATION",
@@ -1028,6 +1199,9 @@
     "chain": []
   },
   "980015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:980015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-980-CORRELATION",
@@ -1046,6 +1220,9 @@
     "chain": []
   },
   "980016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:980016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-980-CORRELATION",
@@ -1064,6 +1241,9 @@
     "chain": []
   },
   "980017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:980017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-980-CORRELATION",
@@ -1082,6 +1262,9 @@
     "chain": []
   },
   "980018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:980018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-980-CORRELATION",
@@ -1100,6 +1283,9 @@
     "chain": []
   },
   "934011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:934011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-934-APPLICATION-ATTACK-GENERIC",
@@ -1118,6 +1304,9 @@
     "chain": []
   },
   "934012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:934012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-934-APPLICATION-ATTACK-GENERIC",
@@ -1136,6 +1325,9 @@
     "chain": []
   },
   "934013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:934013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-934-APPLICATION-ATTACK-GENERIC",
@@ -1154,6 +1346,9 @@
     "chain": []
   },
   "934014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:934014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-934-APPLICATION-ATTACK-GENERIC",
@@ -1172,6 +1367,9 @@
     "chain": []
   },
   "934015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:934015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-934-APPLICATION-ATTACK-GENERIC",
@@ -1190,6 +1388,9 @@
     "chain": []
   },
   "934016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:934016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-934-APPLICATION-ATTACK-GENERIC",
@@ -1208,6 +1409,9 @@
     "chain": []
   },
   "934017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:934017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-934-APPLICATION-ATTACK-GENERIC",
@@ -1226,6 +1430,9 @@
     "chain": []
   },
   "934018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:934018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-934-APPLICATION-ATTACK-GENERIC",
@@ -1244,6 +1451,9 @@
     "chain": []
   },
   "959011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:959011,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-959-BLOCKING-EVALUATION",
@@ -1262,6 +1472,9 @@
     "chain": []
   },
   "959012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:959012,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-959-BLOCKING-EVALUATION",
@@ -1280,6 +1493,9 @@
     "chain": []
   },
   "959013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:959013,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-959-BLOCKING-EVALUATION",
@@ -1298,6 +1514,9 @@
     "chain": []
   },
   "959014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:959014,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-959-BLOCKING-EVALUATION",
@@ -1316,6 +1535,9 @@
     "chain": []
   },
   "959015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:959015,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-959-BLOCKING-EVALUATION",
@@ -1334,6 +1556,9 @@
     "chain": []
   },
   "959016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:959016,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-959-BLOCKING-EVALUATION",
@@ -1352,6 +1577,9 @@
     "chain": []
   },
   "959017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:959017,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-959-BLOCKING-EVALUATION",
@@ -1370,6 +1598,9 @@
     "chain": []
   },
   "959018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:959018,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-959-BLOCKING-EVALUATION",
@@ -1388,6 +1619,9 @@
     "chain": []
   },
   "950011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:950011,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-950-DATA-LEAKAGES",
@@ -1406,6 +1640,9 @@
     "chain": []
   },
   "950012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:950012,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-950-DATA-LEAKAGES",
@@ -1424,6 +1661,9 @@
     "chain": []
   },
   "950013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:950013,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-950-DATA-LEAKAGES",
@@ -1442,6 +1682,9 @@
     "chain": []
   },
   "950014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:950014,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-950-DATA-LEAKAGES",
@@ -1460,6 +1703,9 @@
     "chain": []
   },
   "950015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:950015,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-950-DATA-LEAKAGES",
@@ -1478,6 +1724,9 @@
     "chain": []
   },
   "950016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:950016,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-950-DATA-LEAKAGES",
@@ -1496,6 +1745,9 @@
     "chain": []
   },
   "950017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:950017,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-950-DATA-LEAKAGES",
@@ -1514,6 +1766,9 @@
     "chain": []
   },
   "950018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:950018,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-950-DATA-LEAKAGES",
@@ -1532,6 +1787,9 @@
     "chain": []
   },
   "930011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:930011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-930-APPLICATION-ATTACK-LFI",
@@ -1550,6 +1808,9 @@
     "chain": []
   },
   "930012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:930012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-930-APPLICATION-ATTACK-LFI",
@@ -1568,6 +1829,9 @@
     "chain": []
   },
   "930013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:930013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-930-APPLICATION-ATTACK-LFI",
@@ -1586,6 +1850,9 @@
     "chain": []
   },
   "930014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:930014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-930-APPLICATION-ATTACK-LFI",
@@ -1604,6 +1871,9 @@
     "chain": []
   },
   "930015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:930015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-930-APPLICATION-ATTACK-LFI",
@@ -1622,6 +1892,9 @@
     "chain": []
   },
   "930016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:930016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-930-APPLICATION-ATTACK-LFI",
@@ -1640,6 +1913,9 @@
     "chain": []
   },
   "930017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:930017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-930-APPLICATION-ATTACK-LFI",
@@ -1658,6 +1934,9 @@
     "chain": []
   },
   "930018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:930018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-930-APPLICATION-ATTACK-LFI",
@@ -1676,6 +1955,9 @@
     "chain": []
   },
   "913011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:913011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-913-SCANNER-DETECTION",
@@ -1694,6 +1976,9 @@
     "chain": []
   },
   "913012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:913012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-913-SCANNER-DETECTION",
@@ -1712,6 +1997,9 @@
     "chain": []
   },
   "913013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:913013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-913-SCANNER-DETECTION",
@@ -1730,6 +2018,9 @@
     "chain": []
   },
   "913014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:913014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-913-SCANNER-DETECTION",
@@ -1748,6 +2039,9 @@
     "chain": []
   },
   "913015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:913015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-913-SCANNER-DETECTION",
@@ -1766,6 +2060,9 @@
     "chain": []
   },
   "913016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:913016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-913-SCANNER-DETECTION",
@@ -1784,6 +2081,9 @@
     "chain": []
   },
   "913017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:913017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-913-SCANNER-DETECTION",
@@ -1802,6 +2102,9 @@
     "chain": []
   },
   "913018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:913018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-913-SCANNER-DETECTION",
@@ -1820,6 +2123,9 @@
     "chain": []
   },
   "931011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:931011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-931-APPLICATION-ATTACK-RFI",
@@ -1838,6 +2144,9 @@
     "chain": []
   },
   "931012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:931012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-931-APPLICATION-ATTACK-RFI",
@@ -1856,6 +2165,9 @@
     "chain": []
   },
   "931013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:931013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-931-APPLICATION-ATTACK-RFI",
@@ -1874,6 +2186,9 @@
     "chain": []
   },
   "931014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:931014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-931-APPLICATION-ATTACK-RFI",
@@ -1892,6 +2207,9 @@
     "chain": []
   },
   "931015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:931015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-931-APPLICATION-ATTACK-RFI",
@@ -1910,6 +2228,9 @@
     "chain": []
   },
   "931016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:931016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-931-APPLICATION-ATTACK-RFI",
@@ -1928,6 +2249,9 @@
     "chain": []
   },
   "931017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:931017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-931-APPLICATION-ATTACK-RFI",
@@ -1946,6 +2270,9 @@
     "chain": []
   },
   "931018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:931018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-931-APPLICATION-ATTACK-RFI",
@@ -1964,6 +2291,9 @@
     "chain": []
   },
   "952011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:952011,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-952-DATA-LEAKAGES-JAVA",
@@ -1982,6 +2312,9 @@
     "chain": []
   },
   "952012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:952012,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-952-DATA-LEAKAGES-JAVA",
@@ -2000,6 +2333,9 @@
     "chain": []
   },
   "952013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:952013,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-952-DATA-LEAKAGES-JAVA",
@@ -2018,6 +2354,9 @@
     "chain": []
   },
   "952014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:952014,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-952-DATA-LEAKAGES-JAVA",
@@ -2036,6 +2375,9 @@
     "chain": []
   },
   "952015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:952015,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-952-DATA-LEAKAGES-JAVA",
@@ -2054,6 +2396,9 @@
     "chain": []
   },
   "952016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:952016,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-952-DATA-LEAKAGES-JAVA",
@@ -2072,6 +2417,9 @@
     "chain": []
   },
   "952017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:952017,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-952-DATA-LEAKAGES-JAVA",
@@ -2090,6 +2438,9 @@
     "chain": []
   },
   "952018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:952018,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-952-DATA-LEAKAGES-JAVA",
@@ -2108,6 +2459,9 @@
     "chain": []
   },
   "943011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:943011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION",
@@ -2126,6 +2480,9 @@
     "chain": []
   },
   "943012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:943012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION",
@@ -2144,6 +2501,9 @@
     "chain": []
   },
   "943013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:943013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION",
@@ -2162,6 +2522,9 @@
     "chain": []
   },
   "943014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:943014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION",
@@ -2180,6 +2543,9 @@
     "chain": []
   },
   "943015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:943015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION",
@@ -2198,6 +2564,9 @@
     "chain": []
   },
   "943016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:943016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION",
@@ -2216,6 +2585,9 @@
     "chain": []
   },
   "943017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:943017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION",
@@ -2234,6 +2606,9 @@
     "chain": []
   },
   "943018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:943018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION",
@@ -2252,6 +2627,9 @@
     "chain": []
   },
   "955011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:955011,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-955-WEB-SHELLS",
@@ -2270,6 +2648,9 @@
     "chain": []
   },
   "955012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:955012,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-955-WEB-SHELLS",
@@ -2288,6 +2669,9 @@
     "chain": []
   },
   "955013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:955013,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-955-WEB-SHELLS",
@@ -2306,6 +2690,9 @@
     "chain": []
   },
   "955014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:955014,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-955-WEB-SHELLS",
@@ -2324,6 +2711,9 @@
     "chain": []
   },
   "955015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:955015,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-955-WEB-SHELLS",
@@ -2342,6 +2732,9 @@
     "chain": []
   },
   "955016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:955016,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-955-WEB-SHELLS",
@@ -2360,6 +2753,9 @@
     "chain": []
   },
   "955017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:955017,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-955-WEB-SHELLS",
@@ -2378,6 +2774,9 @@
     "chain": []
   },
   "955018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:955018,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-955-WEB-SHELLS",
@@ -2396,6 +2795,9 @@
     "chain": []
   },
   "944011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:944011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-944-APPLICATION-ATTACK-JAVA",
@@ -2414,6 +2816,9 @@
     "chain": []
   },
   "944012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:944012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-944-APPLICATION-ATTACK-JAVA",
@@ -2432,6 +2837,9 @@
     "chain": []
   },
   "944013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:944013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-944-APPLICATION-ATTACK-JAVA",
@@ -2450,6 +2858,9 @@
     "chain": []
   },
   "944014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:944014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-944-APPLICATION-ATTACK-JAVA",
@@ -2468,6 +2879,9 @@
     "chain": []
   },
   "944015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:944015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-944-APPLICATION-ATTACK-JAVA",
@@ -2486,6 +2900,9 @@
     "chain": []
   },
   "944016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:944016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-944-APPLICATION-ATTACK-JAVA",
@@ -2504,6 +2921,9 @@
     "chain": []
   },
   "944017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:944017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-944-APPLICATION-ATTACK-JAVA",
@@ -2522,6 +2942,9 @@
     "chain": []
   },
   "944018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:944018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-944-APPLICATION-ATTACK-JAVA",
@@ -2540,6 +2963,9 @@
     "chain": []
   },
   "954011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:954011,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-954-DATA-LEAKAGES-IIS",
@@ -2558,6 +2984,9 @@
     "chain": []
   },
   "954012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:954012,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-954-DATA-LEAKAGES-IIS",
@@ -2576,6 +3005,9 @@
     "chain": []
   },
   "954013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:954013,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-954-DATA-LEAKAGES-IIS",
@@ -2594,6 +3026,9 @@
     "chain": []
   },
   "954014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:954014,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-954-DATA-LEAKAGES-IIS",
@@ -2612,6 +3047,9 @@
     "chain": []
   },
   "954015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:954015,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-954-DATA-LEAKAGES-IIS",
@@ -2630,6 +3068,9 @@
     "chain": []
   },
   "954016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:954016,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-954-DATA-LEAKAGES-IIS",
@@ -2648,6 +3089,9 @@
     "chain": []
   },
   "954017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:954017,phase:3,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-954-DATA-LEAKAGES-IIS",
@@ -2666,6 +3110,9 @@
     "chain": []
   },
   "954018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:954018,phase:4,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-954-DATA-LEAKAGES-IIS",
@@ -2684,6 +3131,9 @@
     "chain": []
   },
   "920011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:920011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-920-PROTOCOL-ENFORCEMENT",
@@ -2702,6 +3152,9 @@
     "chain": []
   },
   "920012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:920012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-920-PROTOCOL-ENFORCEMENT",
@@ -2720,6 +3173,9 @@
     "chain": []
   },
   "920013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:920013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-920-PROTOCOL-ENFORCEMENT",
@@ -2738,6 +3194,9 @@
     "chain": []
   },
   "920014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:920014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-920-PROTOCOL-ENFORCEMENT",
@@ -2756,6 +3215,9 @@
     "chain": []
   },
   "920015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:920015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-920-PROTOCOL-ENFORCEMENT",
@@ -2774,6 +3236,9 @@
     "chain": []
   },
   "920016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:920016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-920-PROTOCOL-ENFORCEMENT",
@@ -2792,6 +3257,9 @@
     "chain": []
   },
   "920017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:920017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-920-PROTOCOL-ENFORCEMENT",
@@ -2810,6 +3278,9 @@
     "chain": []
   },
   "920018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:920018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-920-PROTOCOL-ENFORCEMENT",
@@ -2828,6 +3299,9 @@
     "chain": []
   },
   "933011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:933011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-933-APPLICATION-ATTACK-PHP",
@@ -2846,6 +3320,9 @@
     "chain": []
   },
   "933012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:933012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-933-APPLICATION-ATTACK-PHP",
@@ -2864,6 +3341,9 @@
     "chain": []
   },
   "933013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:933013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-933-APPLICATION-ATTACK-PHP",
@@ -2882,6 +3362,9 @@
     "chain": []
   },
   "933014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:933014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-933-APPLICATION-ATTACK-PHP",
@@ -2900,6 +3383,9 @@
     "chain": []
   },
   "933015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:933015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-933-APPLICATION-ATTACK-PHP",
@@ -2918,6 +3404,9 @@
     "chain": []
   },
   "933016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:933016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-933-APPLICATION-ATTACK-PHP",
@@ -2936,6 +3425,9 @@
     "chain": []
   },
   "933017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:933017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-933-APPLICATION-ATTACK-PHP",
@@ -2954,6 +3446,9 @@
     "chain": []
   },
   "933018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:933018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-933-APPLICATION-ATTACK-PHP",
@@ -2972,6 +3467,9 @@
     "chain": []
   },
   "941011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:941011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-941-APPLICATION-ATTACK-XSS",
@@ -2990,6 +3488,9 @@
     "chain": []
   },
   "941012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:941012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-941-APPLICATION-ATTACK-XSS",
@@ -3008,6 +3509,9 @@
     "chain": []
   },
   "941013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:941013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-941-APPLICATION-ATTACK-XSS",
@@ -3026,6 +3530,9 @@
     "chain": []
   },
   "941014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:941014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-941-APPLICATION-ATTACK-XSS",
@@ -3044,6 +3551,9 @@
     "chain": []
   },
   "941015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:941015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-941-APPLICATION-ATTACK-XSS",
@@ -3062,6 +3572,9 @@
     "chain": []
   },
   "941016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:941016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-941-APPLICATION-ATTACK-XSS",
@@ -3080,6 +3593,9 @@
     "chain": []
   },
   "941017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:941017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-941-APPLICATION-ATTACK-XSS",
@@ -3098,6 +3614,9 @@
     "chain": []
   },
   "941018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:941018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-941-APPLICATION-ATTACK-XSS",
@@ -3116,6 +3635,9 @@
     "chain": []
   },
   "921011": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:921011,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-921-PROTOCOL-ATTACK",
@@ -3134,6 +3656,9 @@
     "chain": []
   },
   "921012": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "1",
     "actions": "id:921012,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-921-PROTOCOL-ATTACK",
@@ -3152,6 +3677,9 @@
     "chain": []
   },
   "921013": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:921013,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-921-PROTOCOL-ATTACK",
@@ -3170,6 +3698,9 @@
     "chain": []
   },
   "921014": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "2",
     "actions": "id:921014,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-921-PROTOCOL-ATTACK",
@@ -3188,6 +3719,9 @@
     "chain": []
   },
   "921015": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:921015,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-921-PROTOCOL-ATTACK",
@@ -3206,6 +3740,9 @@
     "chain": []
   },
   "921016": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "3",
     "actions": "id:921016,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-921-PROTOCOL-ATTACK",
@@ -3224,6 +3761,9 @@
     "chain": []
   },
   "921017": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:921017,phase:1,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-921-PROTOCOL-ATTACK",
@@ -3242,6 +3782,9 @@
     "chain": []
   },
   "921018": {
+    "variables": [
+      "TX:DETECTION_PARANOIA_LEVEL"
+    ],
     "operator": "@lt",
     "regex": "4",
     "actions": "id:921018,phase:2,pass,nolog,tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-REQUEST-921-PROTOCOL-ATTACK",

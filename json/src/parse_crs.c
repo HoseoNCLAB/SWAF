@@ -30,6 +30,25 @@ static char *remove_backslashes(const char *s) {
 }
 
 void process_rule(char *buf, json_t *rules_obj) {
+    // Extract variables (before first quote)
+    char *var_end = strchr(buf, '"');
+    if (!var_end) return;
+
+    char *var_start = strstr(buf, "SecRule");
+    if (!var_start) return;
+    var_start += 7;
+    while (*var_start == ' ' || *var_start == '\t') var_start++;
+
+    char *variables_str = strndup(var_start, var_end - var_start);
+    json_t *variables_arr = json_array();
+    char *var_tok = strtok(variables_str, "|");
+    while (var_tok) {
+        char *trimmed = trim(var_tok);
+        json_array_append_new(variables_arr, json_string(trimmed));
+        var_tok = strtok(NULL, "|");
+    }
+    free(variables_str);
+
     // Extract operator and regex
     char *op_start = strchr(buf, '"'); if (!op_start) return;
     char *op_end = strchr(op_start + 1, '"'); if (!op_end) return;
@@ -45,7 +64,7 @@ void process_rule(char *buf, json_t *rules_obj) {
     }
     free(op_regex);
 
-        // Extract actions (allow missing actions for simple chain rules)
+    // Extract actions (allow missing actions for simple chain rules)
     char *actions = strdup("");
     char *act_start = strchr(op_end + 1, '"');
     if (act_start) {
@@ -57,9 +76,8 @@ void process_rule(char *buf, json_t *rules_obj) {
             free(actions_raw);
         }
     }
-    // if no action quotes, actions remains empty string
 
-    // Determine ID (top-level or chain target)
+    // Determine ID
     char id_buf[64];
     if (pending_chain_id) {
         strcpy(id_buf, pending_chain_id);
@@ -70,18 +88,15 @@ void process_rule(char *buf, json_t *rules_obj) {
         sscanf(id_tok, "%63[^, ]", id_buf);
     }
 
-    // Parse flags
     int block = !!(strstr(actions, "deny") || strstr(actions, "block"));
     int has_chain = !!strstr(actions, "chain");
 
-    // Create JSON object for this rule
     json_t *rule_json = json_object();
-    // If top-level, register under its ID
     if (!pending_chain_id) {
         json_object_set_new(rules_obj, id_buf, rule_json);
     }
 
-    // Populate common fields
+    json_object_set_new(rule_json, "variables", variables_arr);
     json_object_set_new(rule_json, "operator", json_string(operator_name));
     json_object_set_new(rule_json, "regex", json_string(regex_str));
     json_object_set_new(rule_json, "actions", json_string(actions));
@@ -96,7 +111,6 @@ void process_rule(char *buf, json_t *rules_obj) {
     json_object_set_new(rule_json, "tags", json_array());
     json_object_set_new(rule_json, "transformations", json_array());
 
-    // Parse detailed tokens
     char *saveptr;
     char *tok = strtok_r(actions, ",", &saveptr);
     while (tok) {
@@ -128,18 +142,14 @@ void process_rule(char *buf, json_t *rules_obj) {
         tok = strtok_r(NULL, ",", &saveptr);
     }
 
-    // Finally, handle chain: append or initialize as last step
     if (pending_chain_id) {
-        // Sub-rule: append to parent chain
         json_t *parent = json_object_get(rules_obj, pending_chain_id);
         json_t *chain_arr = json_object_get(parent, "chain");
         json_array_append_new(chain_arr, rule_json);
     } else {
-        // Top-level: ensure empty chain array at end
         json_object_set_new(rule_json, "chain", json_array());
     }
 
-    // Manage pending_chain_id lifecycle
     if (!pending_chain_id && has_chain) {
         pending_chain_id = strdup(id_buf);
     } else if (pending_chain_id && !has_chain) {
@@ -183,27 +193,20 @@ void parse_directory(const char *path, json_t *rules_obj) {
     }
 }
 
-
 int main(int argc, char *argv[]) {
     const char *crs_path = (argc >= 2) ? argv[1] : CRSDIR;
     json_t *rules = json_object();
 
     parse_directory(crs_path, rules);
 
-    // 파싱된 룰 수 계산
     size_t rule_count = json_object_size(rules);
-
-    // JSON 파일로 출력
-    if (json_dump_file(rules, "All_parsed_rules.json", JSON_INDENT(2)) < 0) {
+    if (json_dump_file(rules, "test.json", JSON_INDENT(2)) < 0) {
         fprintf(stderr, "json_dump_file failed\n");
         json_decref(rules);
         return 1;
     }
 
-    // 파싱된 룰 개수 출력
-    printf("총 %zu개의 룰을 파싱했습니다.\n", rule_count); //586개 파싱됨
-
+    printf("총 %zu개의 룰을 파싱했습니다.\n", rule_count);
     json_decref(rules);
     return 0;
 }
-

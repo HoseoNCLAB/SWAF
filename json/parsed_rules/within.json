@@ -1,5 +1,8 @@
 {
   "911100": {
+    "variables": [
+      "REQUEST_METHOD"
+    ],
     "operator": "!@within",
     "regex": "%{tx.allowed_methods}",
     "actions": "id:911100,phase:1,block,msg:'Method is not allowed by policy',logdata:'%{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-generic',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/METHOD-ENFORCEMENT',tag:'capec/1000/210/272/220/274',tag:'PCI/12.1',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
@@ -28,6 +31,9 @@
     "chain": []
   },
   "920180": {
+    "variables": [
+      "REQUEST_PROTOCOL"
+    ],
     "operator": "!@within",
     "regex": "HTTP/2 HTTP/2.0 HTTP/3 HTTP/3.0",
     "actions": "id:920180,phase:1,block,t:none,msg:'POST without Content-Length or Transfer-Encoding headers',logdata:'%{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-protocol',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/PROTOCOL-ENFORCEMENT',tag:'capec/1000/210/272',ver:'OWASP_CRS/4.14.0-dev',severity:'WARNING',chain",
@@ -54,6 +60,9 @@
     ],
     "chain": [
       {
+        "variables": [
+          "REQUEST_METHOD"
+        ],
         "operator": "@streq",
         "regex": "POST",
         "actions": "chain",
@@ -69,6 +78,9 @@
         "transformations": []
       },
       {
+        "variables": [
+          "&REQUEST_HEADERS:Content-Length"
+        ],
         "operator": "@eq",
         "regex": "0",
         "actions": "chain",
@@ -84,6 +96,9 @@
         "transformations": []
       },
       {
+        "variables": [
+          "&REQUEST_HEADERS:Transfer-Encoding"
+        ],
         "operator": "@eq",
         "regex": "0",
         "actions": "setvar:'tx.inbound_anomaly_score_pl1=+%{tx.warning_anomaly_score}'",
@@ -103,6 +118,9 @@
     ]
   },
   "920430": {
+    "variables": [
+      "REQUEST_PROTOCOL"
+    ],
     "operator": "!@within",
     "regex": "%{tx.allowed_http_versions}",
     "actions": "id:920430,phase:1,block,t:none,msg:'HTTP protocol version is not allowed by policy',logdata:'%{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-protocol',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/PROTOCOL-ENFORCEMENT',tag:'capec/1000/210/272',tag:'PCI/6.5.10',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",

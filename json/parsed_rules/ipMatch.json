@@ -1,5 +1,8 @@
 {
   "905110": {
+    "variables": [
+      "REMOTE_ADDR"
+    ],
     "operator": "@ipMatch",
     "regex": "127.0.0.1,::1",
     "actions": "id:905110,phase:1,pass,t:none,nolog,tag:'application-multi',tag:'language-multi',tag:'platform-apache',tag:'attack-generic',tag:'OWASP_CRS',ver:'OWASP_CRS/4.14.0-dev',chain",
@@ -23,6 +26,9 @@
     ],
     "chain": [
       {
+        "variables": [
+          "REQUEST_HEADERS:User-Agent"
+        ],
         "operator": "@endsWith",
         "regex": "(internal dummy connection)",
         "actions": "t:none,chain",
@@ -40,6 +46,9 @@
         ]
       },
       {
+        "variables": [
+          "REQUEST_LINE"
+        ],
         "operator": "@rx",
         "regex": "^(?:GET /|OPTIONS \\*) HTTP/[12]\\.[01]$",
         "actions": "t:none,ctl:ruleRemoveByTag=OWASP_CRS,ctl:auditEngine=Off",

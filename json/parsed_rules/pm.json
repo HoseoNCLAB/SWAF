@@ -1,5 +1,8 @@
 {
   "953010": {
+    "variables": [
+      "RESPONSE_HEADERS:Content-Encoding"
+    ],
     "operator": "@pm",
     "regex": "gzip compress deflate br zstd",
     "actions": "id:953010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-PHP',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-953-DATA-LEAKAGES-PHP",
@@ -19,6 +22,9 @@
     "chain": []
   },
   "951010": {
+    "variables": [
+      "RESPONSE_HEADERS:Content-Encoding"
+    ],
     "operator": "@pm",
     "regex": "gzip compress deflate br zstd",
     "actions": "id:951010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-SQL',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-951-DATA-LEAKAGES-SQL",
@@ -38,6 +44,9 @@
     "chain": []
   },
   "950010": {
+    "variables": [
+      "RESPONSE_HEADERS:Content-Encoding"
+    ],
     "operator": "@pm",
     "regex": "gzip compress deflate br zstd",
     "actions": "id:950010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-950-DATA-LEAKAGES",
@@ -57,6 +66,9 @@
     "chain": []
   },
   "952010": {
+    "variables": [
+      "RESPONSE_HEADERS:Content-Encoding"
+    ],
     "operator": "@pm",
     "regex": "gzip compress deflate br zstd",
     "actions": "id:952010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-JAVA',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-952-DATA-LEAKAGES-JAVA",
@@ -76,6 +88,9 @@
     "chain": []
   },
   "955010": {
+    "variables": [
+      "RESPONSE_HEADERS:Content-Encoding"
+    ],
     "operator": "@pm",
     "regex": "gzip compress deflate br zstd",
     "actions": "id:955010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/WEB-SHELLS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-955-WEB-SHELLS",
@@ -95,6 +110,9 @@
     "chain": []
   },
   "954010": {
+    "variables": [
+      "RESPONSE_HEADERS:Content-Encoding"
+    ],
     "operator": "@pm",
     "regex": "gzip compress deflate br zstd",
     "actions": "id:954010,phase:4,pass,nolog,tag:'OWASP_CRS',tag:'OWASP_CRS/DATA-LEAKAGES-IIS',ver:'OWASP_CRS/4.14.0-dev',skipAfter:END-RESPONSE-954-DATA-LEAKAGES-IIS",
@@ -114,6 +132,14 @@
     "chain": []
   },
   "933190": {
+    "variables": [
+      "REQUEST_COOKIES",
+      "!REQUEST_COOKIES:/__utm/",
+      "REQUEST_COOKIES_NAMES",
+      "ARGS_NAMES",
+      "ARGS",
+      "XML:/*"
+    ],
     "operator": "@pm",
     "regex": "?>",
     "actions": "id:933190,phase:2,block,capture,t:none,t:urlDecodeUni,msg:'PHP Injection Attack: PHP Closing Tag Found',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-php',tag:'platform-multi',tag:'attack-injection-php',tag:'paranoia-level/3',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-PHP',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.php_injection_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl3=+%{tx.critical_anomaly_score}'",
@@ -145,6 +171,15 @@
     "chain": []
   },
   "941180": {
+    "variables": [
+      "REQUEST_COOKIES",
+      "!REQUEST_COOKIES:/__utm/",
+      "REQUEST_COOKIES_NAMES",
+      "ARGS_NAMES",
+      "ARGS",
+      "REQUEST_FILENAME",
+      "XML:/*"
+    ],
     "operator": "@pm",
     "regex": "document.cookie document.domain document.querySelector document.body.appendChild document.write .parentnode .innerhtml window.location -moz-binding <!-- <![cdata[",
     "actions": "id:941180,phase:2,block,capture,t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,msg:'Node-Validator Deny List Keywords',logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',tag:'application-multi',tag:'language-multi',tag:'platform-multi',tag:'attack-xss',tag:'xss-perf-disable',tag:'paranoia-level/1',tag:'OWASP_CRS',tag:'OWASP_CRS/ATTACK-XSS',tag:'capec/1000/152/242',ver:'OWASP_CRS/4.14.0-dev',severity:'CRITICAL',setvar:'tx.xss_score=+%{tx.critical_anomaly_score}',setvar:'tx.inbound_anomaly_score_pl1=+%{tx.critical_anomaly_score}'",
