@@ -31,7 +31,8 @@ int SwafCapturePcreSingle(const char *rule_id, const char *subject, TxStore *tx,
     PcreCacheTable *cache_table = is_hs_cache ? HsCacheTableGetGlobal() : PcreOnlyCacheTableGetGlobal();
 
     /** 룰 ID 조회 */
-    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(cache_table, rule_id, strlen(rule_id));
+    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(cache_table, rule_id, \
+                                                                    strlen(rule_id));
     if (!entry || !entry->re) {
         fprintf(stderr, "[PCRE] 캡처 실패: 룰 %s 없음 (is_hs_cache=%d)\n", rule_id, is_hs_cache);
         PcreCacheTableDump(cache_table);

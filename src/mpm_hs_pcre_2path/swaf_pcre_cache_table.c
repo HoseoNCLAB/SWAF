@@ -348,7 +348,9 @@ void PcreCacheTableFree(void) {
  * @note 이 함수는 주어진 룰 ID에 대해 부정 조건 여부를 확인    
  */
 int PcreCacheTableIsNegated(const char *rule_id) {
-    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(PcreOnlyCacheTableGetGlobal(), rule_id, strlen(rule_id));
+    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(PcreOnlyCacheTableGetGlobal(), \
+                                                                    rule_id, \
+                                                                    strlen(rule_id));
     return entry ? entry->is_negated : 0;
 }
 

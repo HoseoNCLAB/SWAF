@@ -14,7 +14,7 @@
  * @brief 탐지된 룰 ID들을 저장하는 컨테이너
  */
 typedef struct PrefilterRuleStore_ {
-    SigIntId *rule_id_array;      /* 탐지된 룰 ID 배열 */
+    SigIntId *rule_id_array;      /* 탐지된 룰 SID 배열 */
     uint32_t rule_id_array_cnt;   /* 현재 사용된 룰 ID 개수 */
     uint32_t rule_id_array_size;  /* 할당된 배열의 전체 크기 */
 } PrefilterRuleStore;

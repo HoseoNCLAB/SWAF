@@ -10,10 +10,10 @@
 #include "swaf_pcre_capture_single.h"
 #include "tx_store.h"
 
-//#define HS_ONLY_RULE_PATH   "../../parsed_rules/hyperscan_only_rules.json"
-//#define PCRE_ONLY_RULE_PATH "../../parsed_rules/pcre_only_rules.json"
-#define HS_ONLY_RULE_PATH   "../../parsed_rules/hs_only_rules_for_test_chain.json"
-#define PCRE_ONLY_RULE_PATH "../../parsed_rules/pcre_only_rules_for_test.json"
+#define HS_ONLY_RULE_PATH   "../../parsed_rules/hyperscan_only_rules.json"
+#define PCRE_ONLY_RULE_PATH "../../parsed_rules/pcre_only_rules.json"
+//#define HS_ONLY_RULE_PATH   "../../parsed_rules/hs_only_rules_for_test_chain.json"
+//#define PCRE_ONLY_RULE_PATH "../../parsed_rules/pcre_only_rules_for_test.json"
 
 
 /**
@@ -98,6 +98,8 @@ int main() {
                 /** Hyperscan 탐지된 룰에 대해 PCRE 매칭 시도 */
                 if (SwafPcreMatchWithId(payload, strlen(payload), result.rule_ids[i], &tx)) {
                     printf("[ALERT] Hyperscan 매칭된 룰 %u에 대해 PCRE 캡처 성공\n", result.rule_ids[i]);
+                } else {
+                    printf("[ALERT] Hyperscan 매칭된 룰 %u에 대해 PCRE 캡처 실패\n", result.rule_ids[i]);
                 }
 
                 FreeTxStore(&tx);
@@ -130,7 +132,9 @@ int main() {
                     int is_malicious = SwafMatchPcreSingle(bucket->key, payload, &tx);
 
                     /** 통계 기록 */
-                    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(pcre_cache, bucket->key, strlen(bucket->key));
+                    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(pcre_cache, \
+                                                                                    bucket->key, \
+                                                                                    strlen(bucket->key));
                     if (entry && entry->is_negated) {
                         total_negated_rules++;
                         if (!is_malicious)
@@ -157,7 +161,9 @@ int main() {
                     InitTxStore(&tx);
 
                     /** 체인 엔트리 조회 (통계용 is_negated 접근용) */
-                    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(chain_cache, bucket->key, strlen(bucket->key));
+                    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(chain_cache, \
+                                                                                    bucket->key, \
+                                                                                    strlen(bucket->key));
                     if (!entry || !entry->next) {
                         bucket = bucket->next;
                         continue;
@@ -186,7 +192,8 @@ int main() {
 
             /** 매칭 결과 출력 */
             printf("\n[INFO] PCRE 탐지된 룰 %d개\n", pcre_match_count);
-            printf("[INFO] 부정 매칭 성공한 룰 %d개 / 전체 부정 룰 %d개\n", negated_success_count, total_negated_rules);
+            printf("[INFO] 부정 매칭 성공한 룰 %d개 / 전체 부정 룰 %d개\n", negated_success_count, \
+                    total_negated_rules);
 
             /** 모든 부정 매칭이 성공한 경우만 정상으로 간주 */
             if (total_negated_rules == negated_success_count && matched == 0) {
@@ -197,6 +204,8 @@ int main() {
         }
     }
     /** 5. 리소스 해제 */
+    PcreCacheTableFree();
+    printf("\n[INFO] 리소스 해제 완료\n");
     printf("\n[INFO] 프로그램 종료\n");
     return 0;
 }

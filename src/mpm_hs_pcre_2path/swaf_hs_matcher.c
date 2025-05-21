@@ -48,26 +48,14 @@ SigMatchResult SwafMatchHyperscan(const char *payload) {
     printf("[DEBUG] rule_store ID 저장 배열: %p, 크기: %u\n",
            (void *)rule_store.rule_id_array, rule_store.rule_id_array_size);
 
-    uint32_t matched = SCHSSearch(&mpm_ctx, &mpm_thread_ctx, &rule_store,
+    uint32_t matched = SCHSSearch(&mpm_ctx, &mpm_thread_ctx, &rule_store,   \
                                   (const uint8_t *)payload, (uint32_t)len);
-
-    printf("\n[DEBUG] 매칭된 HS 룰 개수: %u\n", rule_store.rule_id_array_cnt);
 
     /** Hyperscan 매칭 성공 시 모든 룰 ID를 결과에 저장 */
     result.match_cnt = rule_store.rule_id_array_cnt;
     if (result.match_cnt > 0 && rule_store.rule_id_array != NULL) {
-        memcpy(result.rule_ids, rule_store.rule_id_array,
+        memcpy(result.rule_ids, rule_store.rule_id_array,   \
                sizeof(uint32_t) * result.match_cnt);
-
-        for (uint32_t i = 0; i < result.match_cnt; i++) {
-            uint32_t rule_id = result.rule_ids[i];
-            printf("[DEBUG] Hyperscan 매칭된 룰 ID: %u, PCRE로 전달\n", rule_id);
-
-            TxStore tx;
-            InitTxStore(&tx);
-            SwafPcreMatchWithId(payload, len, rule_id, &tx);
-            FreeTxStore(&tx);
-        }
     }
 
     PmqCleanup(&rule_store);

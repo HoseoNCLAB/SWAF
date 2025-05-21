@@ -49,7 +49,8 @@ int SwafInitHsOnly(const char *json_path) {
 
         int errornum;
         PCRE2_SIZE erroffset;
-        pcre2_code *re = pcre2_compile((PCRE2_SPTR)actual_rx, PCRE2_ZERO_TERMINATED, 0, &errornum, &erroffset, NULL);
+        pcre2_code *re = pcre2_compile((PCRE2_SPTR)actual_rx, PCRE2_ZERO_TERMINATED, \
+                                        0, &errornum, &erroffset, NULL);
 
         if (!re) {
             PCRE2_UCHAR buffer[256];
@@ -126,7 +127,8 @@ int SwafInitPcreOnly(const char *json_path) {
                 /** 정규식 컴파일 */
                 int errornum;
                 PCRE2_SIZE erroffset;
-                pcre2_code *re = pcre2_compile((PCRE2_SPTR)actual_rx, PCRE2_ZERO_TERMINATED, 0, &errornum, &erroffset, NULL);
+                pcre2_code *re = pcre2_compile((PCRE2_SPTR)actual_rx, PCRE2_ZERO_TERMINATED, \
+                                                0, &errornum, &erroffset, NULL);
                 if (!re) {
                     PCRE2_UCHAR buffer[256];
                     pcre2_get_error_message(errornum, buffer, sizeof(buffer));
@@ -167,7 +169,8 @@ int SwafInitPcreOnly(const char *json_path) {
 
             int errornum;
             PCRE2_SIZE erroffset;
-            pcre2_code *re = pcre2_compile((PCRE2_SPTR)actual_rx, PCRE2_ZERO_TERMINATED, 0, &errornum, &erroffset, NULL);
+            pcre2_code *re = pcre2_compile((PCRE2_SPTR)actual_rx, PCRE2_ZERO_TERMINATED, \
+                                            0, &errornum, &erroffset, NULL);
 
             if (!re) {
                 PCRE2_UCHAR buffer[256];

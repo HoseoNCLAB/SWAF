@@ -1152,9 +1152,6 @@ uint32_t SCHSSearch(const MpmCtx *mpm_ctx, MpmThreadCtx *mpm_thread_ctx,
          * which is not something we can recover from at scan time. */
         SCLogError("Hyperscan returned error %d", err);
         exit(EXIT_FAILURE);
-    } else {
-        ret = cctx.match_count;
-        printf("[DEBUG] hs_scan 성공: 매칭된 룰 수 = %u\n", ret);
     }
 
     return ret;

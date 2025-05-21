@@ -22,12 +22,14 @@
  */
 static int MatchPcreSingle(PcreCacheEntry *entry, const char *payload) {
     if (!entry || !entry->re) {
-        fprintf(stderr, "[PCRE] 단일 룰이 NULL이거나 정규식이 없습니다 (룰 ID: %s)\n", entry ? entry->rule_id : "알 수 없음");
+        fprintf(stderr, "[PCRE] 단일 룰이 NULL이거나 정규식이 없습니다 (룰 ID: %s)\n", \
+                entry ? entry->rule_id : "알 수 없음");
         return 0;
     }
 
     if (entry->next != NULL) {
-        fprintf(stderr, "[PCRE] 단일 룰이 아닌 체인 엔트리를 단일 룰로 처리하려고 했습니다 (룰 ID: %s)\n", entry->rule_id);
+        fprintf(stderr, "[PCRE] 단일 룰이 아닌 체인 엔트리를 단일 룰로 처리하려고 했습니다 (룰 ID: %s)\n", \
+                entry->rule_id);
         return 0;
     }
 
@@ -71,25 +73,29 @@ static int MatchPcreSingle(PcreCacheEntry *entry, const char *payload) {
  */
 static int MatchPcreChain(PcreCacheEntry *chain_entry, const char *payload) {
     if (!chain_entry || !chain_entry->next) {
-        fprintf(stderr, "[PCRE] 체인 엔트리가 NULL이거나 첫 단계가 없습니다 (체인 베이스: %s)\n", chain_entry ? chain_entry->rule_id : "알 수 없음");
+        fprintf(stderr, "[PCRE] 체인 엔트리가 NULL이거나 첫 단계가 없습니다 (체인 베이스: %s)\n", \
+                chain_entry ? chain_entry->rule_id : "알 수 없음");
         return 0;
     }
 
     PcreCacheEntry *current_step = chain_entry->next;
     while (current_step) {
         if (!current_step->re) {
-            fprintf(stderr, "[PCRE] 체인 단계의 정규식이 NULL입니다 (체인 베이스: %s, 단계: %s)\n", chain_entry->rule_id, current_step->rule_id);
+            fprintf(stderr, "[PCRE] 체인 단계의 정규식이 NULL입니다 (체인 베이스: %s, 단계: %s)\n", \
+                    chain_entry->rule_id, current_step->rule_id);
             return 0;
         }
 
         pcre2_match_data *match_data = pcre2_match_data_create_from_pattern(current_step->re, NULL);
         if (!match_data) {
-            fprintf(stderr, "[PCRE] match_data 생성 실패 (체인 베이스: %s, 단계: %s)\n", chain_entry->rule_id, current_step->rule_id);
+            fprintf(stderr, "[PCRE] match_data 생성 실패 (체인 베이스: %s, 단계: %s)\n", \
+                    chain_entry->rule_id, current_step->rule_id);
             return 0;
         }
 
         /** 정규식 매칭 시도 */
-        int rc = pcre2_match(current_step->re, (PCRE2_SPTR)payload, strlen(payload), 0, 0, match_data, NULL);
+        int rc = pcre2_match(current_step->re, (PCRE2_SPTR)payload, strlen(payload), \
+                                0, 0, match_data, NULL);
 
         int is_negated = current_step->is_negated;
         int match_fail = is_negated ? (rc > 0) : (rc <= 0);
@@ -128,7 +134,9 @@ int SwafMatchPcreSingle(const char *rule_id, const char *payload, TxStore *tx) {
     }
 
     /** 단일 룰 캐시에서만 검색 */
-    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(PcreOnlyCacheTableGetGlobal(), rule_id, strlen(rule_id));
+    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(PcreOnlyCacheTableGetGlobal(), \
+                                                                    rule_id, \
+                                                                    strlen(rule_id));
     if (!entry || entry->next != NULL) {
         fprintf(stderr, "[PCRE] 단일 룰 '%s' 없음 또는 체인 룰로 잘못 처리됨 (PCRE 캐시)\n", rule_id);
         return 0;
@@ -161,7 +169,8 @@ int SwafMatchPcreSingle(const char *rule_id, const char *payload, TxStore *tx) {
  */
 int SwafMatchPcreChain(const char *chain_base_id, const char *payload, TxStore *tx) {
     if (!chain_base_id || !payload || !tx) {
-        fprintf(stderr, "[PCRE] 입력이 NULL입니다 (체인 베이스 ID = %s)\n", chain_base_id ? chain_base_id : "알 수 없음");
+        fprintf(stderr, "[PCRE] 입력이 NULL입니다 (체인 베이스 ID = %s)\n", \
+                    chain_base_id ? chain_base_id : "알 수 없음");
         return 0;
     }
 
@@ -203,7 +212,9 @@ int SwafPcreMatchWithId(const char *subject, int len, uint32_t rule_id, TxStore 
     snprintf(rule_id_str, sizeof(rule_id_str), "%u", rule_id);
 
     /** Hyperscan 캐시 테이블에서 룰 ID 조회 */
-    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(HsCacheTableGetGlobal(), rule_id_str, strlen(rule_id_str));
+    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(HsCacheTableGetGlobal(), \
+                                                                    rule_id_str, \
+                                                                    strlen(rule_id_str));
     if (!entry || !entry->re) {
         fprintf(stderr, "[PCRE] capture fail: 룰 %s 없음 (Hyperscan 캐시)\n", rule_id_str);
         return 0;
@@ -212,13 +223,6 @@ int SwafPcreMatchWithId(const char *subject, int len, uint32_t rule_id, TxStore 
     /** 단일 룰 캡처 처리 */
     printf("[DEBUG] SwafCapturePcreSingle 시작 - 룰 ID: %s\n", rule_id_str);
     int capture_success = SwafCapturePcreSingle(rule_id_str, subject, tx, 1);
-
-    /** 디버그: 캡처 성공 여부 출력 */
-    if (capture_success) {
-        printf("[DEBUG] 룰 %s 캡처 성공\n", rule_id_str);
-    } else {
-        printf("[DEBUG] 룰 %s 캡처 실패\n", rule_id_str);
-    }
 
     return capture_success;
 }

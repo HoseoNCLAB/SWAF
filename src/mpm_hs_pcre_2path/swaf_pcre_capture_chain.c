@@ -30,7 +30,9 @@ int SwafCapturePcreChain(const char *chain_base_id, const char *subject, TxStore
     FreeTxStore(tx);
 
     /** 체인 베이스 엔트리 검색 */
-    PcreCacheEntry *base_entry = (PcreCacheEntry *)PcreCacheTableLookup(ChainCacheTableGetGlobal(), chain_base_id, strlen(chain_base_id));
+    PcreCacheEntry *base_entry = (PcreCacheEntry *)PcreCacheTableLookup(ChainCacheTableGetGlobal(), \
+                                                                        chain_base_id, \
+                                                                        strlen(chain_base_id));
     if (!base_entry || !base_entry->next) {
         fprintf(stderr, "[PCRE] 체인 베이스 '%s' 없음 또는 첫 단계 없음 (체인 캐시)\n", chain_base_id);
         return 0;
@@ -47,10 +49,12 @@ int SwafCapturePcreChain(const char *chain_base_id, const char *subject, TxStore
         }
 
         /** 정규식 매칭 시도 */
-        int rc = pcre2_match(current_step->re, (PCRE2_SPTR)subject, strlen(subject), 0, 0, match_data, NULL);
+        int rc = pcre2_match(current_step->re, (PCRE2_SPTR)subject, strlen(subject), \
+                                0, 0, match_data, NULL);
 
         if (rc <= 0) {
-            printf("[DEBUG] 체인 단계 매칭 실패 (체인 베이스='%s', 단계='%s')\n", chain_base_id, current_step->rule_id);
+            printf("[DEBUG] 체인 단계 매칭 실패 (체인 베이스='%s', 단계='%s')\n", chain_base_id, \
+                    current_step->rule_id);
             pcre2_match_data_free(match_data);
             return 0;
         }

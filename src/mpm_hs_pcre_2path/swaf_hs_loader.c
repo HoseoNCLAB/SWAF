@@ -4,6 +4,7 @@
 #include "mpm.h"
 #include "mem.h"
 #include "sig_id.h"
+#include "hash_lookup3.h"
 
 #include <jansson.h>
 #include <stdio.h>
@@ -61,16 +62,16 @@ int SwafInitHyperscan(const char *json_path) {
         // printf("[DEBUG] Hyperscan 등록 예정 정규식((?i) 제거 후): %s\n", regex_raw);
 
         uint32_t sid = (uint32_t)atoi(rule_id);
-        uint32_t pid = sid;
+        uint32_t pid = hashlittle_safe(regex_raw, strlen(regex_raw), 0);
         uint16_t offset = 0;
         uint16_t depth = MAX_PAYLOAD_LEN;
 
         int r;
         if (is_ci) {
-            r = SCHSAddPatternCI(&mpm_ctx, (uint8_t *)regex_raw, (uint16_t)strlen(regex_raw),
+            r = SCHSAddPatternCI(&mpm_ctx, (uint8_t *)regex_raw, (uint16_t)strlen(regex_raw), \
                                  offset, depth, pid, sid, flags);
         } else {
-            r = SCHSAddPatternCS(&mpm_ctx, (uint8_t *)regex_raw, (uint16_t)strlen(regex_raw),
+            r = SCHSAddPatternCS(&mpm_ctx, (uint8_t *)regex_raw, (uint16_t)strlen(regex_raw), \
                                  offset, depth, pid, sid, flags);
         }
 
@@ -98,11 +99,10 @@ int SwafInitHyperscan(const char *json_path) {
 
 /**
  * SwafConnectPatternSids
- * - Hyperscan 룰과 SID 연결 함수
- * - Hyperscan 룰에 대해 SID를 설정
+ * - 현재는 불필요한 함수로, SCHSAddPattern 내부에서 이미
+ *   SID 배열(p->sids[])이 모두 누적 처리됨
  *
- * @return: 0 (성공), -1 (실패)
- * @note: 이 함수는 Hyperscan 룰에 대해 SID를 설정하여 룰을 연결
+ * @return: 항상 0 (성공)
  */
 int SwafConnectPatternSids(void) {
     SCHSCtx *ctx = (SCHSCtx *)mpm_ctx.ctx;
@@ -118,24 +118,11 @@ int SwafConnectPatternSids(void) {
         if (p == NULL)
             continue;
 
-        if (p->sids) {
-            SCFree(p->sids);
-            p->sids = NULL;
-            p->sids_size = 0;
+        printf("[CONNECT] Pattern %u (internal_id=%u) → SIDs: [", i, p->id);
+        for (uint32_t j = 0; j < p->sids_size; j++) {
+            printf("%" PRIu32 "%s", p->sids[j], (j < p->sids_size - 1) ? ", " : "");
         }
-
-        SigIntId *sid_arr = SCCalloc(1, sizeof(SigIntId), SigIntId);
-        if (!sid_arr) {
-            fprintf(stderr, "[HS] SID 메모리 할당 실패 (pattern %u)\n", i);
-            return -1;
-        }
-
-        sid_arr[0] = p->id;
-        p->sids = sid_arr;
-        p->sids_size = 1;
-
-        /** 디버그용 */
-        // printf("[CONNECT] Pattern %u (id=%u) → SID 설정 완료: %u\n", i, p->id, sid_arr[0]);
+        printf("]\n");
     }
 
     return 0;
