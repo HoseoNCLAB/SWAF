@@ -1,8 +1,13 @@
 #include "swaf_pcre_cache_table.h"
+#include "MurmurHash3.h"
 
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+#define DEFAULT_HS_BUCKET_SIZE 1024
+#define DEFAULT_PCRE_BUCKET_SIZE 1024
+#define DEFAULT_PCRE_CHAIN_BUCKET_SIZE 1024
 
 /** 전역 캐시 테이블 포인터 */
 static PcreCacheTable *hs_cache_table = NULL;
@@ -32,7 +37,7 @@ PcreCacheTable *ChainCacheTableGetGlobal(void) {
  * @param free_func 메모리 해제 함수
  * @return PcreCacheTable* 생성된 캐시 테이블 포인터
  */
-PcreCacheTable *CreatePcreCacheTable(uint32_t size,
+PcreCacheTable *CreateCacheTable(uint32_t size,
                                      PcreHashFunc hash,
                                      PcreCompareFunc cmp,
                                      PcreFreeFunc free_func) {
@@ -155,11 +160,11 @@ void PcreCacheTableDump(PcreCacheTable *t) {
  * @note 이 함수는 주어진 문자열을 해싱하여 해시 값을 생성
  */
 static uint32_t PcreHash(const char *key, uint16_t len) {
-    const uint8_t *d = (const uint8_t *)key;
-    uint32_t h = 0;
-    for (uint32_t i = 0; i < len; i++)
-        h = h * 31 + d[i];
-    return h;
+    uint64_t hash128[2];
+    /** seed는 고정 또는 설정 가능 */
+    MurmurHash3_x64_128(key, len, 0x1337, &hash128);
+    /** 하위 32비트만 사용 */
+    return (uint32_t)(hash128[0] & 0xFFFFFFFF);
 }
 
 
@@ -315,9 +320,12 @@ int PcreCacheTableInit(void) {
     if (hs_cache_table != NULL || pcre_only_cache_table != NULL)
         return 0;
 
-    hs_cache_table = CreatePcreCacheTable(1024, PcreHash, PcreCompare, FreePcreEntry);
-    pcre_only_cache_table = CreatePcreCacheTable(1024, PcreHash, PcreCompare, FreePcreEntry);
-    chain_cache_table = CreatePcreCacheTable(1024, PcreHash, PcreCompare, FreePcreChainEntry);
+    hs_cache_table = CreateCacheTable(DEFAULT_HS_BUCKET_SIZE, PcreHash, PcreCompare, \
+                                            FreePcreEntry);
+    pcre_only_cache_table = CreateCacheTable(DEFAULT_PCRE_BUCKET_SIZE, PcreHash, PcreCompare, \
+                                                FreePcreEntry);
+    chain_cache_table = CreateCacheTable(DEFAULT_PCRE_CHAIN_BUCKET_SIZE, PcreHash, PcreCompare, \
+                                                FreePcreChainEntry);
     
     if (!hs_cache_table || !pcre_only_cache_table || !chain_cache_table) {
         fprintf(stderr, "[ERROR] 글로벌 캐시 테이블 초기화 실패\n");

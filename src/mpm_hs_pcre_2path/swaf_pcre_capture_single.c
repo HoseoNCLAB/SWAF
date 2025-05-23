@@ -4,7 +4,6 @@
 #include "swaf_pcre_cache_table.h"
 #include "tx_store.h"
 
-#include <pcre2.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,9 +20,10 @@
  * @param is_hs_cache: HS 캐시 여부 (1: HS 캐시, 0: PCRE 캐시)
  * @return: 1 (캡처 성공), 0 (캡처 실패)
  */
-int SwafCapturePcreSingle(const char *rule_id, const char *subject, TxStore *tx, int is_hs_cache) {
-    if (!rule_id || !subject || !tx) {
-        fprintf(stderr, "[PCRE] 유효하지 않은 입력\n");
+int SwafCapturePcreSingle(const char *rule_id, const char *subject, TxStore *tx, \
+                            pcre2_match_data *match_data, int is_hs_cache) {
+    if (!rule_id || !subject || !tx || !match_data) {
+        fprintf(stderr, "[PCRE] 유효하지 않은 입력 또는 match_data NULL\n");
         return 0;
     }
 
@@ -31,29 +31,9 @@ int SwafCapturePcreSingle(const char *rule_id, const char *subject, TxStore *tx,
     PcreCacheTable *cache_table = is_hs_cache ? HsCacheTableGetGlobal() : PcreOnlyCacheTableGetGlobal();
 
     /** 룰 ID 조회 */
-    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(cache_table, rule_id, \
-                                                                    strlen(rule_id));
+    PcreCacheEntry *entry = (PcreCacheEntry *)PcreCacheTableLookup(cache_table, rule_id, strlen(rule_id));
     if (!entry || !entry->re) {
         fprintf(stderr, "[PCRE] 캡처 실패: 룰 %s 없음 (is_hs_cache=%d)\n", rule_id, is_hs_cache);
-        PcreCacheTableDump(cache_table);
-        return 0;
-    }
-
-    /** 매칭 시도 */
-    pcre2_match_data *match_data = pcre2_match_data_create_from_pattern(entry->re, NULL);
-    if (!match_data) {
-        fprintf(stderr, "[PCRE] match_data 생성 실패: 룰 ID = %s\n", rule_id);
-        return 0;
-    }
-
-    int rc = pcre2_match(entry->re, (PCRE2_SPTR)subject, strlen(subject), 0, 0, match_data, NULL);
-
-    /** 악성 판정 여부 */
-    int is_negated = entry->is_negated;
-    int is_malicious = (!is_negated && rc > 0) || (is_negated && rc <= 0);
-
-    if (!is_malicious) {
-        pcre2_match_data_free(match_data);
         return 0;
     }
 
@@ -96,8 +76,6 @@ int SwafCapturePcreSingle(const char *rule_id, const char *subject, TxStore *tx,
         }
     }
 
-    pcre2_match_data_free(match_data);
     PrintTx(rule_id, tx);
-    
     return 1;
 }

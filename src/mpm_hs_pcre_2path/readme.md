@@ -17,4 +17,4 @@
 
 ### -- swaf_main.c compile code --
 
-#### g++ -std=c++11 -DPCRE2_CODE_UNIT_WIDTH=8 -DUNITTESTS -DBUILD_HYPERSCAN     -o swaf_main_test     swaf_main.c     swaf_hs_loader.c     swaf_hs_matcher.c     mpm.c     mpm_hs.c     mpm_hs_core.c     mpm_hs_cache.c     prefilter.c     hash_table.c     hash_lookup3.c     path.c     unittest.c     swaf_pcre_loader.c     swaf_pcre_matcher.c     swaf_pcre_cache_table.c     swaf_pcre_capture_single.c     swaf_pcre_capture_chain.c     -I.     -I/usr/local/include/hs     -lhs     -ljansson     -lpcre2-8
+#### g++ -std=c++11 -DPCRE2_CODE_UNIT_WIDTH=8 -DUNITTESTS -DBUILD_HYPERSCAN     -o swaf_main_test     swaf_main.c     swaf_hs_loader.c     swaf_hs_matcher.c     mpm.c     mpm_hs.c     mpm_hs_core.c     mpm_hs_cache.c     prefilter.c     hash_table.c     hash_lookup3.c     path.c     unittest.c     swaf_pcre_loader.c     swaf_pcre_matcher.c     swaf_pcre_cache_table.c  MurmurHash3.cpp   swaf_pcre_capture_single.c     swaf_pcre_capture_chain.c     -I.     -I/usr/local/include/hs     -lhs     -ljansson     -lpcre2-8

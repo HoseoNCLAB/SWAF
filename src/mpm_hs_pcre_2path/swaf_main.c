@@ -10,10 +10,10 @@
 #include "swaf_pcre_capture_single.h"
 #include "tx_store.h"
 
-#define HS_ONLY_RULE_PATH   "../../parsed_rules/hyperscan_only_rules.json"
-#define PCRE_ONLY_RULE_PATH "../../parsed_rules/pcre_only_rules.json"
-//#define HS_ONLY_RULE_PATH   "../../parsed_rules/hs_only_rules_for_test_chain.json"
-//#define PCRE_ONLY_RULE_PATH "../../parsed_rules/pcre_only_rules_for_test.json"
+//#define HS_ONLY_RULE_PATH   "../../parsed_rules/hyperscan_only_rules.json"
+//#define PCRE_ONLY_RULE_PATH "../../parsed_rules/pcre_only_rules.json"
+#define HS_ONLY_RULE_PATH   "../../parsed_rules/hs_only_rules_for_test_chain.json"
+#define PCRE_ONLY_RULE_PATH "../../parsed_rules/pcre_only_rules_for_test.json"
 
 
 /**

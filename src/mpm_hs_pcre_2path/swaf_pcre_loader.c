@@ -100,16 +100,25 @@ int SwafInitPcreOnly(const char *json_path) {
         /** 체인 룰 처리 */
         if (json_is_array(rule_obj)) {
             size_t chain_len = json_array_size(rule_obj);
+            pcre2_code **compiled_steps = (pcre2_code **)calloc(chain_len, sizeof(pcre2_code *));
+            if (!compiled_steps) {
+                fprintf(stderr, "[PCRE-ONLY] 메모리 할당 실패: 체인 %s\n", rule_id);
+                continue;
+            }
+
+            int compile_failed = 0;
+
             for (size_t i = 0; i < chain_len; ++i) {
                 json_t *step = json_array_get(rule_obj, i);
                 const char *regex_raw = json_string_value(json_object_get(step, "regex"));
                 if (!regex_raw || strlen(regex_raw) == 0) {
                     fprintf(stderr, "[PCRE-ONLY] 빈 정규식 (체인 %s의 단계 %zu)\n", rule_id, i);
-                    continue;
+                    compile_failed = 1;
+                    break;
                 }
 
-                /** @rx 또는 !@rx 제거 */
                 const char *actual_rx = regex_raw;
+                is_negated = 0;
                 if (strncmp(regex_raw, "!@rx", 4) == 0) {
                     is_negated = 1;
                     actual_rx = regex_raw + 4;
@@ -117,32 +126,47 @@ int SwafInitPcreOnly(const char *json_path) {
                     actual_rx = regex_raw + 3;
                 }
 
-                /** 공백 제거 */
                 while (*actual_rx == ' ') actual_rx++;
                 if (strlen(actual_rx) == 0) {
-                    fprintf(stderr, "[PCRE-ONLY] 빈 정규식 (체인 %s의 단계 %zu)\n", rule_id, i);
-                    continue;
+                    fprintf(stderr, "[PCRE-ONLY] 공백 정규식 (체인 %s의 단계 %zu)\n", rule_id, i);
+                    compile_failed = 1;
+                    break;
                 }
 
-                /** 정규식 컴파일 */
                 int errornum;
                 PCRE2_SIZE erroffset;
-                pcre2_code *re = pcre2_compile((PCRE2_SPTR)actual_rx, PCRE2_ZERO_TERMINATED, \
-                                                0, &errornum, &erroffset, NULL);
+                pcre2_code *re = pcre2_compile((PCRE2_SPTR)actual_rx, PCRE2_ZERO_TERMINATED,
+                                               0, &errornum, &erroffset, NULL);
                 if (!re) {
                     PCRE2_UCHAR buffer[256];
                     pcre2_get_error_message(errornum, buffer, sizeof(buffer));
                     fprintf(stderr, "[PCRE-ONLY] 체인 컴파일 실패 (%s_%zu): %s\n", rule_id, i, buffer);
-                    continue;
+                    compile_failed = 1;
+                    break;
                 }
 
-                /** 체인 엔트리 추가 */
-                if (PcreCacheTableAddChain(rule_id, i, re, is_negated) != 0) {
-                    fprintf(stderr, "[PCRE-ONLY] 체인 엔트리 추가 실패 (%s_%zu)\n", rule_id, i);
-                    pcre2_code_free(re);
-                    continue;
+                compiled_steps[i] = re;
+            }
+
+            if (!compile_failed) {
+                for (size_t i = 0; i < chain_len; ++i) {
+                    if (PcreCacheTableAddChain(rule_id, i, compiled_steps[i], is_negated) != 0) {
+                        fprintf(stderr, "[PCRE-ONLY] 체인 엔트리 추가 실패 (%s_%zu)\n", rule_id, i);
+                        compile_failed = 1;
+                        break;
+                    }
                 }
             }
+
+            if (compile_failed) {
+                for (size_t i = 0; i < chain_len; ++i) {
+                    if (compiled_steps[i]) {
+                        pcre2_code_free(compiled_steps[i]);
+                    }
+                }
+            }
+
+            free(compiled_steps);
             continue;
         }
 
@@ -160,7 +184,6 @@ int SwafInitPcreOnly(const char *json_path) {
                 actual_rx = regex_raw + 3;
             }
 
-            /** 공백 제거 */
             while (*actual_rx == ' ') actual_rx++;
             if (strlen(actual_rx) == 0) {
                 fprintf(stderr, "[PCRE-ONLY] 빈 정규식 (단일 %s)\n", rule_id);
@@ -169,8 +192,8 @@ int SwafInitPcreOnly(const char *json_path) {
 
             int errornum;
             PCRE2_SIZE erroffset;
-            pcre2_code *re = pcre2_compile((PCRE2_SPTR)actual_rx, PCRE2_ZERO_TERMINATED, \
-                                            0, &errornum, &erroffset, NULL);
+            pcre2_code *re = pcre2_compile((PCRE2_SPTR)actual_rx, PCRE2_ZERO_TERMINATED,
+                                           0, &errornum, &erroffset, NULL);
 
             if (!re) {
                 PCRE2_UCHAR buffer[256];
